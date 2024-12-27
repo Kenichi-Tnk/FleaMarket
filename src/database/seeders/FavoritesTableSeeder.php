@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Favorite;
 use Illuminate\Database\Seeder;
 
 class FavoritesTableSeeder extends Seeder

@@ -11,14 +11,14 @@ class IndexController extends Controller
     public function index()
     {
         $items = Item::inRandomOrder()->take(15)->get();
-        $likeItems = null;
+        $favoriteItems = null;
 
         if(Auth::check()) {
             $user = Auth::user();
-            $likeItems = $user->likeItems;
+            $favoriteItems = $user->favoriteItems;
         }
 
-        return view('index', compact('items', 'likeItems'));
+        return view('index', compact('items', 'favoriteItems'));
     }
 
 }

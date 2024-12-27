@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -13,27 +15,27 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create({
+        User::create([
             'name' => '管理者',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
-            'img_url' => '/img/default_icon.svg',
+            'img_url' => '/img/default_icon.png',
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),
-        });
+        ]);
 
-        User::create({
+        User::create([
             'name' => 'ユーザー名',
             'email' => 'test@test.com',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
-            'img_url' => '/img/default_icon.svg',
-            'remember_token' => Str::random,
+            'img_url' => '/img/default_icon.png',
+            'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),
-        });
+        ]);
 
         User::factory()->count(16)->create();
     }

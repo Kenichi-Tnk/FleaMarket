@@ -1,4 +1,4 @@
-@exdends('layouts.app')
+@extends('layouts.app')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/sell.css') }}">
@@ -35,18 +35,54 @@
         <h3 class="form-content__title">商品の詳細</h3>
         <label class="form-content__label">カテゴリー
             <select class="form-content__select" name="category_id">
-                <option disabled {{ collect($selectCategories)->every('selected',false) ? 'selected' : '' }}>--- 選択してください ---</option>
-                @foreach($selectCategories as $category)
+                <option disabled {{ collect($selectCategoryId)->every('selected, false') ? 'selected' : '' }}>--- 選択してください ---</option>
+                @foreach ($selectCategoryId as $category)
                     <option value="{{ $category['id'] }}" {{ $category['selected'] ? 'selected' : '' }}>{{ $category['name'] }}</option>
                 @endforeach
             </select>
         </label>
-        @error
-            <div class="form-conten__error">{{ $message }}</div>
+        @error('category_id')
+            <div class="form-content__error">{{ $message }}</div>
         @enderror
 
         <label class="form-content__title">商品の状態
-            <select></select>
+            <select class="form-content__select" name="condition_id">
+                <option disabled {{ collect($conditions)->every('selected', false) ? 'selected' : '' }}>--- 選択してください ---</option>
+                @foreach($conditions as $condition)
+                    <option value="{{ $condition->id }}" {{ $selectedConditionId == $condition->id ? 'selected' : '' }}>{{ $condition->condition }}</option>
+                @endforeach
+            </select>
         </label>
+        @error('condition_id')
+            <div class="form-content__error">{{ $message }}</div>
+        @enderror
+
+        <h3 class="form-content__title">商品名と説明</h3>
+        <label class="form-content__label">商品名
+            <input class="form-content__input" type="text" name="name" value="{{ $item->name ?? '' }}">
+        </label>
+        @error('name')
+            <div class="form-content__error">{{ $message }}</div>
+        @enderror
+
+        <label class="form-content__label">商品の説明
+            <textarea class="form-content__textarea" name="description" cols="30" rows="5">{{ $item->description ?? '' }}</textarea>
+        </label>
+        @error('description')
+            <div class="form-content__error">{{ $message }}</div>
+        @enderror
+
+        <h3 class="form-content__title">販売価格</h3>
+        <label class="form-content__label">販売価格
+            <div class="input-content">
+                <input class="form-content__input input-price" type="text" id="price" name="price" value="{{ $item->price ?? '' }}" pattern="^[1-9][0-9]*$">
+            </div>
+        </label>
+        @error('price')
+            <div class="form-content__error">{{ $message }}</div>
+        @enderror
+
+        <input type="hidden" value="{{ Auth::id() }}" name="user_id">
+        <button class="form-content__button" type="submit" onclick="return confirm('出品しますか？')">{{ $item ? '修正する' : '出品する' }}</button>
     </form>
 @endsection

@@ -27,7 +27,7 @@ main {
 }
 
 .image-group,
-.descrition-group,
+.description-group,
 .information-group,
 .form-group {
     width: 90%;
@@ -35,8 +35,12 @@ main {
 }
 
 .image-group {
+    position: relative;
+}
+
+.image-group__image {
     width: 100%;
-    border: 1px slid lightgrey;
+    border: 1px solid lightgrey;
 }
 
 .sold-out__mark {
@@ -108,13 +112,13 @@ main {
     height: 22px;
 }
 
-.likes-count,
+.favorites-count,
 .comments-count {
     margin: 0;
     padding-top: 5px;
 }
 
-.likes-count--red {
+.favorites-count--red {
     color: rgb(255, 73, 73);
 }
 

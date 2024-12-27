@@ -15,7 +15,7 @@ class Category_itemFactory extends Factory
     public function definition()
     {
         static $itemId = 1;
-        
+
         return [
             'item_id' => $itemId++,
             'category_id' => Category::inRandomOrder()->first()->id,

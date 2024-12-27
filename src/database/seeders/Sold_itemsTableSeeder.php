@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sold_item;
 use Illuminate\Database\Seeder;
 
-class Category_itemTableSeeder extends Seeder
+class Sold_itemsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,6 @@ class Category_itemTableSeeder extends Seeder
      */
     public function run()
     {
-        Category_item::factory()->count(100)->create();
+        Sold_item::factory()->count(30)->create();
     }
 }

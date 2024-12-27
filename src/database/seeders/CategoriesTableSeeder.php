@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -16,19 +17,19 @@ class CategoriesTableSeeder extends Seeder
         Category::create([
             'content' => 'ファッション',
             'created_at' => now(),
-            'updated_at' => now(),  
+            'updated_at' => now(),
         ]);
 
         Category::create([
             'content' => '家電',
             'created_at' => now(),
-            'updated_at' => now(),  
+            'updated_at' => now(),
         ]);
 
         Category::create([
             'content' => 'インテリア',
             'created_at' => now(),
-            'updated_at' => now(),  
+            'updated_at' => now(),
         ]);
 
         Category::create([

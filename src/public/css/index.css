@@ -200,6 +200,20 @@
     text-align: center;
 }
 
+.submit-button {
+    width: 100%;
+    max-width: 120px;
+    height: 30px;
+    text-decoration: none;
+    background-color: rgb(255, 73, 73);
+    color: #fff;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 1.4rem;
+    border: none;
+    cursor: pointer;
+}
+
 .submit-button:hover {
     opacity: 0.6;
 }

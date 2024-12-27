@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 @endsection
 
-@section
+@section('main')
     <h1 class="main-title">プロフィール設定</h1>
     <form class="form-content h-adr" action="/mypage/profile/update" method="post" enctype="multipart/formdata">
         @csrf
@@ -30,16 +30,16 @@
             <div class="form-content__error">{{ $message }}</div>
         @enderror
 
-        <lbel class="form-content__label">住所
-            <input class="form-content__input p-region p-locality p-street-address" type="text" name="address" value="{{ $profile->address ?? '' }}"> 
+        <label class="form-content__label">住所
+            <input class="form-content__input p-region p-locality p-street-address" type="text" name="address" value="{{ $profile->address ?? '' }}">
         </label>
         @error('')
             <div class="form-content__error">{{ $message }}</div>
         @enderror
 
         <label class="form-content__label">建物名
-            <input class="form-cntent__input" type="text" name="building" value="{{ $profile->building ?? '' }}">
+            <input class="form-content__input" type="text" name="building" value="{{ $profile->building ?? '' }}">
         </label>
-        <button class="form-cntent__button" type="submit" onclick="return confirm('プロフィールを更新しますか？')">更新する</button>
+        <button class="form-content__button" type="submit" onclick="return confirm('プロフィールを更新しますか？')">更新する</button>
     </form>
 @endsection

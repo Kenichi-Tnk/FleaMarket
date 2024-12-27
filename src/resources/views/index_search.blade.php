@@ -1,4 +1,4 @@
-@exdends('layouts.app')
+@extends('layouts.app')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
@@ -12,16 +12,13 @@
         <div class="tab-content__group">
             @forelse ($items as $item)
                 <div class="tab-content__content">
-                    @if ($item->soldToUsers()->exists())
-                        <div class="sold-out__mark">SOLD OUT</div>
-                    @endif
                     <a class="tab-content__content-link" href="/item/{{ $item->id }}">
                         <img class="tab-content__content-image" src="{{ $item->img_url }}">
                     </a>
                 </div>
                 @empty
                 <p class="no-message">該当するアイテムはありません</p>
-            @forelse
+            @endforelse
 
             @for ($i = 0; $i < 10; $i++)
                 <div class="tab-content__content dummy"></div>

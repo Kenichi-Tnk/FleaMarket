@@ -1,0 +1,211 @@
+main {
+    width: 85%;
+    max-width: 700px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.header__title {
+    display: flex;
+}
+
+.header__text {
+    margin-left: 10px;
+}
+
+.payment-content {
+    border: 1px solid lightgrey;
+}
+
+.payment-inner {
+    padding: 20px;
+}
+
+.payment-label {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 1.4rem;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.payment-radio {
+    margin: 10px;
+    margin-left: 0;
+}
+
+.payment-label:hover,
+.create-card__label:hover {
+    opacity: 0.8;
+}
+
+.payment-group,
+.create-card__group {
+    display: none;
+    padding-left: 10px;
+}
+
+.payment-label:has(:checked) + .payment-group,
+.create-card__label:has(:checked) + .create-card__group {
+    display: block;
+}
+
+.card-radio {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.payment-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.payment-table td {
+    vertical-align: middle;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    padding: 2px 0;
+}
+
+.card-brand__area-img {
+    width: 35px;
+    height: 35px;
+}
+
+.card-image {
+    width: 13%;
+    border-left: 1px solid lightgrey;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.card-brand {
+    width: 15%;
+}
+
+.card-brand__text {
+    font-size: 1.2rem;
+    color: grey;
+}
+
+.card-number {
+    width: 15%;
+    color: grey;
+}
+
+.card-limit {
+    width: 11%;
+    color: grey;
+}
+
+.card-name {
+    width: 28%;
+}
+
+.payment-select {
+    width: 15%;
+    border-right: 1px solid lightgrey;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.payment-list {
+    height: 30px;
+    width: 92%;
+}
+
+.create-card__row {
+    padding-top: 19px;
+    padding-bottom: 19px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.create-card__box {
+    display: flex;
+}
+
+.create-card__area {
+    margin-left: 50px;
+}
+
+.create-card__title {
+    font-size: 1.4rem;
+    margin-bottom: 0;
+}
+
+.input-number,
+.select-limit,
+.input-name {
+    height: 30px;
+}
+
+.input-button {
+    display: block;
+    margin-left: 30px;
+    margin-top: auto;
+    height: 45px;
+    width: 150px;
+    text-decoration: none;
+    background-color: white;
+    color: rgb(255, 73, 73);
+    border: 2px solid rgb(255, 73, 73);
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.submit-button {
+    display: block;
+    margin: 30px auto;
+    height: 45px;
+    width: 200px;
+    text-decoration: none;
+    background-color: rgb(255, 73, 73);
+    color: white;
+    border-radius: 3px;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width:768px) {
+    .card-brand__area-img {
+        height: 25px;
+        width: 25px;
+    }
+
+    .create-card__box {
+        display: block;
+    }
+
+    .create-card__area {
+        margin-left: 20px;
+    }
+
+    .card-brand,
+    .card-number,
+    .card-limit,
+    .card-name {
+        display: none;
+    }
+
+    .input-number {
+        width: 90%;
+        max-width: 169px;
+    }
+
+    .input-name {
+        width: 90%;
+        max-width: 316px;
+    }
+
+    .input-button {
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+}

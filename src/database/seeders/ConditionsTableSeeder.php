@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Condition;
 use Illuminate\Database\Seeder;
 
 class ConditionsTableSeeder extends Seeder

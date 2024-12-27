@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
@@ -10,14 +10,14 @@
         @csrf
         <span class="p-country-name" style="display: none">Japan</span>
         <label class="form-content__label" for="postcode">郵便番号
-            <input class="form-cntent__input p-postcode" type="text" size="8" maxlength="8" id="postcode" name="postcode" value="{{ $profile->postcode ?? '' }}">
+            <input class="form-content__input p-postcode" type="text" size="8" maxlength="8" id="postcode" name="postcode" value="{{ $profile->postcode ?? '' }}">
         </label>
         @error('postal-code')
             <div class="form-content__error">{{ $message }}</div>
         @enderror
 
         <label class="form-content__label" for="address">住所
-            <input class="form-content__input p-region p-locality p-street-address p-extebded-address" type="text" id="address" name="address" value="{{ $profile->address ?? '' }}">
+            <input class="form-content__input p-region p-locality p-street-address p-extended-address" type="text" id="address" name="address" value="{{ $profile->address ?? '' }}">
         </label>
         @error('address')
             <div class="form-content__error">{{ $message }}</div>

@@ -4,7 +4,7 @@
     <div class="comment-group">
         @foreach ($comments as $comment)
             @if (Auth::id() === $comment['userId'])
-                <div class="commet-content comment-content--right">
+                <div class="comment-content comment-content--right">
                     <div class="user-area user-area--right">
                         <span class="user-area__name">{{ $comment['userName' ]}}</span>
                         <img class="user-area__image" src="{{ $comment[ 'userIcon'] }}">
@@ -31,6 +31,7 @@
         @endforeach
     </div>
     <form class="form-group" action="/item/comment/store/{{ $item->id}}" method="post">
+        @csrf
         <label class="form-group__label">商品へのコメント
             <textarea class="form-group__textarea" name="comment" rows="5" required></textarea>
         </label>
