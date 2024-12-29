@@ -6,7 +6,7 @@
 
 @section('main')
     <h2 class="main-title">住所の変更</h2>
-    <form class="form-content h-adr" action="/purchase/adress/update/{{$item_id}}" method="post">
+    <form class="form-content h-adr" action="/purchase/address/update/{{$item_id}}" method="post">
         @csrf
         <span class="p-country-name" style="display: none">Japan</span>
         <label class="form-content__label" for="postcode">郵便番号

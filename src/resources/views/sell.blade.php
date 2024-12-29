@@ -9,6 +9,11 @@
         <div class="message-success" id="message">
             {{ session('success') }}
         </div>
+         <script>
+            $(document).ready(function(){
+                $("#message").fadeIn(1000).delay(3000).fadeOut(1000);
+            });
+        </script>
     @endif
 
     <h2 class="main-title">商品の出品</h2>
@@ -34,12 +39,12 @@
 
         <h3 class="form-content__title">商品の詳細</h3>
         <label class="form-content__label">カテゴリー
-            <select class="form-content__select" name="category_id">
-                <option disabled {{ collect($selectCategoryId)->every('selected, false') ? 'selected' : '' }}>--- 選択してください ---</option>
-                @foreach ($selectCategoryId as $category)
-                    <option value="{{ $category['id'] }}" {{ $category['selected'] ? 'selected' : '' }}>{{ $category['name'] }}</option>
+            <div class="category-buttons">
+                @foreach($categories as $category)
+                    <button type="button" class=" category-button" value="{{ $category->id }}">{{ $category->content}}</button>
                 @endforeach
-            </select>
+            </div>
+            <input type="hidden" name="category_id" id="category_id">
         </label>
         @error('category_id')
             <div class="form-content__error">{{ $message }}</div>
@@ -85,4 +90,16 @@
         <input type="hidden" value="{{ Auth::id() }}" name="user_id">
         <button class="form-content__button" type="submit" onclick="return confirm('出品しますか？')">{{ $item ? '修正する' : '出品する' }}</button>
     </form>
+
+    <script>
+        document.querySelectorAll('.category-button').forEach(button => {
+            button.addEventListener('click', function(){
+                document.querySelectorAll('.category-button').forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                const selectedCategory = this.value;
+                document.getElementById('category_id').value = selectedCategory;
+                console.log('Selected category;', selectedCategory);
+            });
+        });
+    </script>
 @endsection

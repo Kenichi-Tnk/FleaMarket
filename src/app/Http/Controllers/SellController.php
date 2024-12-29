@@ -14,6 +14,7 @@ class SellController extends Controller
     public function index($item_id = null)
     {
         $conditions = Condition::all();
+        $categories = Category::all();
         $selectedConditionId = null;
         $selectedCategoryId = null;
 
@@ -25,6 +26,7 @@ class SellController extends Controller
 
         $data = [
             'conditions' => $conditions,
+            'categories' => $categories,
             'selectedConditionId' => $selectedConditionId,
             'item' => $item ?? null,
             'item_id' => $item_id ?? null,
