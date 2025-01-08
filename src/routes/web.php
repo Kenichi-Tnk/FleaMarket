@@ -38,7 +38,7 @@ Route::middleware('auth', 'verified')->group(function() {
     Route::prefix('mypage')->group(function() {
         Route::get('/', [MypageController::class, 'index']);
         Route::get('/profile', [MypageController::class, 'profile']);
-        Route::post('/profile/update', [MypageController::class, 'update']);
+        Route::post('/profile/update', [MypageController::class, 'update'])->name('profile.store');
     });
 
 

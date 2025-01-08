@@ -25,44 +25,27 @@ class MypageController extends Controller
 
         return view('mypage', $data);
     }
+
     public function profile()
     {
         $user = Auth::user();
-        $profile = null;
+        $profile = $user->profile ?? null;
 
-        if ($user->profile) {
-            $profile = $user->profile;
-        }
-
-        return view('profile', compact('user', 'profile'));
+        return view('profile', compact('user'));
     }
 
     public function update(Request $request)
     {
         $user = Auth::user();
-        $userForm = $request->only('name');
-        unset($request->all()['_token']);
+        $userForm = $request->only(['name', 'postcode', 'address', 'building']);
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/img/dummy', $filename);
+            $path = $file->storeAs('storage/img/dummy', $filename);
             $user->img_url = '/storage/img/dummy/' . $filename;
         }
 
-        $user->update($userForm);
-
-        return redirect()->back();
-
-        $profile = $user;
-        $profileForm = $request->only(['profile', 'address', 'building']);
-
-        if ($profile) {
-            $profile->update($profileForm);
-        } else {
-            $user->profile()->create($profileForm);
-        }
-
-        return redirect()->back()->with('success', 'プロフィールを変更しました');
+        return redirect('/')->with('success', 'プロフィールを変更しました');
     }
 }

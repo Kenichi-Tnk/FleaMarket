@@ -9,6 +9,15 @@
         <div class="message-success" id="message">
             {{ session('success') }}
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const message = document.getElementById('message');
+                message.style.display = 'block';
+                setTimeout(function() {
+                    message.style.display = 'none';
+                }, 4000);
+            });
+        </script>
     @endif
 
     <div class="section-container">

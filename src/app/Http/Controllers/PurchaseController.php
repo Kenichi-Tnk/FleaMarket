@@ -15,21 +15,12 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
         $item = Item::find($item_id);
-        $profile = null;
-        $paymentId = null;
-        $paymentMethod = null;
+        $profile = $user ?? null;
+        $paymentId = session('paymentId');
+        $paymentMethod = session('newPaymentMethod');
 
-        if ($user) {
-            $profile = $user;
-        }
-
-        if (!$user->userPayments->isEmpty()) {
+        if(!$paymentMethod && $user && !$user->userPayments->isEmpty()) {
             $paymentMethod = $user->userPayments()->latest('id')->first()->method;
-        }
-
-        if (session('newPaymentMethod')) {
-            $paymentId = session('paymentId');
-            $paymentMethod = session('newPaymentMethod');
         }
 
         return view('purchase', compact('item', 'profile', 'paymentId', 'paymentMethod'));
@@ -46,9 +37,8 @@ class PurchaseController extends Controller
     public function updateAddress(Request $request, $item_id)
     {
         $user = Auth::user();
-        $form = $request->all();
+        $form = $request->except('_token');
         $isChanged = false;
-        unset($form['_token']);
 
         if ($user->profile) {
             foreach ($form as $key => $value) {
@@ -93,7 +83,7 @@ class PurchaseController extends Controller
         $userId = Auth::id();
         $payment_id = $request->input('payment_id');
         $sold_items = new Sold_item();
-        $sild_items->item_id = $item_id;
+        $sold_items->item_id = $item_id;
         $sold_items->user_id = $userId;
         $sold_items->payment_id = $payment_id;
         $sold_items->save();
