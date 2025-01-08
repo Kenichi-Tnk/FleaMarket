@@ -21,7 +21,7 @@
         @csrf
         <span class="form-content__label">商品の画像
             @if($item)
-                <a class="image-link" href="{{ $item->img_url}}">
+                <a class="image-link" href="{{ $item->img_url }}">
                     <img class="preview-image" id="preview-image" src="{{ $item->img_url }}">
                 </a>
             @else

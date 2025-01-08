@@ -39,8 +39,12 @@ class SellController extends Controller
     {
         $form = $request->all();
 
-        $file = $request->file('img_url');
-        $filename = time() . '_' . $file->getClientOriginalName();
+        if ($request->hasFile('img_url')) {
+            $file = $request->file('img_url');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/img', $filename);
+            $form['img_url'] = '/storage/img/' . $filename;
+        }
 
         $form['price'] = str_replace(',', '', $form['price']);
         $newItem = Item::create($form);
@@ -61,6 +65,8 @@ class SellController extends Controller
         if(isset($form['img_url'])) {
             $file = $request->file('img_url');
             $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/img', $filename);
+            $form['img_url'] = '/storage/img/' . $filename;
         }
 
         if(isset($form['price'])) {
@@ -69,6 +75,23 @@ class SellController extends Controller
         Item::find($item_id)->update($form);
 
         return redirect()->back()->with('success', '変更しました');
+    }
+
+    public function showForm()
+    {
+        $conditions = Condition::all();
+        $categories = Category::all();
+        $selectedConditionId = null;
+
+        $data = [
+            'conditions' => $conditions,
+            'categories' => $categories,
+            'selectedConditionId' => $selectedConditionId,
+            'item' => $item ?? null,
+            'item_id' => $item_id ?? null,
+        ];
+
+        return view('sell', $data);
     }
 
 }
