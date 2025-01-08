@@ -9,7 +9,7 @@
         <div class="message-success" id="message">
             {{ session('success') }}
         </div>
-         <script>
+        <script>
             $(document).ready(function(){
                 $("#message").fadeIn(1000).delay(3000).fadeOut(1000);
             });
@@ -25,7 +25,7 @@
                     <img class="preview-image" id="preview-image" src="{{ $item->img_url }}">
                 </a>
             @else
-                <img class="preview-image" id="preview-image" style="display: none;">
+                <img class="preview-image" id="preview-image" style="display: none">
             @endif
             <div class="image-group">
                 <label class="image-group__label">
@@ -41,7 +41,7 @@
         <label class="form-content__label">カテゴリー
             <div class="category-buttons">
                 @foreach($categories as $category)
-                    <button type="button" class=" category-button" value="{{ $category->id }}">{{ $category->content}}</button>
+                    <button type="button" class="category-button" value="{{ $category->id }}">{{ $category->content}}</button>
                 @endforeach
             </div>
             <input type="hidden" name="category_id" id="category_id">
@@ -90,6 +90,32 @@
         <input type="hidden" value="{{ Auth::id() }}" name="user_id">
         <button class="form-content__button" type="submit" onclick="return confirm('出品しますか？')">{{ $item ? '修正する' : '出品する' }}</button>
     </form>
+
+    <script>
+        function previewFile() {
+            const preview = document.getElementById('preview-image');
+            const file = document.getElementById('image').files[0];
+            const reader = new FileReader();
+
+            reader.addEventListener("load", function() {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+            const selectedCategory = '{{ $item->category_id ?? '' }}';
+            document.querySelectorAll('.category-button').forEach(button => {
+                if(button.value === selectedCategory){
+                    button.classList.add('selected');
+                }
+            });
+        });
+    </script>
 
     <script>
         document.querySelectorAll('.category-button').forEach(button => {

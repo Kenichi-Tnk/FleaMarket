@@ -42,7 +42,7 @@ class SellRequest extends FormRequest
     public function messages()
     {
         return [
-            'img?url.required' => '画像ファイル(jpg png bmp git svg)を選択してください',
+            'img_url.required' => '画像ファイル(jpg png bmp git svg)を選択してください',
             'img_url.image' => '画像ファイル(jpg png bmp gif svg)を選択してください',
             'category_id.required' => 'カテゴリーを選択してください',
             'condition_id.required' => '商品の状態を選択してください',

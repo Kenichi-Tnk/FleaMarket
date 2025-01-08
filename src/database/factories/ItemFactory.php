@@ -17,8 +17,8 @@ class ItemFactory extends Factory
     public function definition()
     {
         $faker = $this->faker;
-        $imageFiles = File::files(public_path('/img/dummy'));
-        $randomImage = '/img/dummy/' . $imageFiles[array_rand($imageFiles)]->getFilename();
+        $imageFiles = File::files(public_path('/storage/img/dummy'));
+        $randomImage = '/storage/img/dummy/' . $imageFiles[array_rand($imageFiles)]->getFilename();
 
         return [
             'name' => $faker->word(),

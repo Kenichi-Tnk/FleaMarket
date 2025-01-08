@@ -21,7 +21,7 @@ class ConditionsTableSeeder extends Seeder
         ]);
 
         Condition::create([
-            'condition' => '良い',
+            'condition' => '目立った傷や汚れなし',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -33,13 +33,13 @@ class ConditionsTableSeeder extends Seeder
         ]);
 
         Condition::create([
-            'condition' => '悪い',
+            'condition' => 'やや傷や汚れあり',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         Condition::create([
-            'condition' => '不良',
+            'condition' => '状態が悪い',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

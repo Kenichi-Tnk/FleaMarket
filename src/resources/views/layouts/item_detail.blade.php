@@ -28,7 +28,7 @@
                         @method('delete')
                         @csrf
                         <button class="item-icon__button" type="submit">
-                            <img class="item-icon__image" src="{{ asset('img/star_red.svg') }}" alt="お気に入り">
+                            <img class="item-icon__image" src="{{ asset('storage/img/star_red.svg') }}" alt="お気に入り">
                             <p class="favorites-count">{{ $favoritesCount }}</p>
                         </button>
                     </form>
@@ -36,14 +36,14 @@
                     <form action="/item/favorite/{{ $item->id }}" method="post">
                         @csrf
                         <button class="item-icon__button" type="submit">
-                            <img class="itm-icon__image" src="{{ asset('img/star.svg') }}" alt="お気に入り">
+                            <img class="itm-icon__image" src="{{ asset('storage/img/star.svg') }}" alt="お気に入り">
                             <p class="favorites-count">{{ $favoritesCount }}</p>
                         </button>
                     </form>
                 @endif
                 <div class="comment-content">
                     <button class="item-icon__button" onclick="location.href='{{ $link }}'">
-                        <img class="item-icon__image" src="{{ request()->is('item/comment/*')  ? asset('img/comment_red.svg') : asset('img/comment.svg') }}" alt="コメント">
+                        <img class="item-icon__image" src="{{ request()->is('item/comment/*')  ? asset('storage/img/comment_red.svg') : asset('storage/img/comment.svg') }}" alt="コメント">
                         <p class="comments-count">{{ $commentsCount}}</p>
                     </button>
                 </div>

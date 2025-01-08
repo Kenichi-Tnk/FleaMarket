@@ -26,7 +26,7 @@
                     <div class="sold-out__mark">SOLD OUT</div>
                 @endif
                 <a class="tab-content__content-link" href="/item/{{ $item->id }}">
-                    <img class="tab-content__content-image" src="{{ $item->img_url }}">
+                    <img class="tab-content__content-image" src="{{ asset($item->img_url) }}">
                 </a>
             </div>
             @endforeach
@@ -43,8 +43,8 @@
                 @foreach($soldItems as $item)
                     <div class="tab-content__content">
                         <div class="sold-out__mark">SOLD OUT</div>
-                        <a class="tab-content__link" href="/item/{{ $item->id }}">
-                            <img class="tab-content__image" src="{{ $item->img_url }}">
+                        <a class="tab-content__content-link" href="/item/{{ $item->id }}">
+                            <img class="tab-content__content-image" src="{{ $item->img_url }}">
                         </a>
                     </div>
                 @endforeach

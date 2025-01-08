@@ -46,8 +46,13 @@ class MypageController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
-
+            $path = $file->storeAs('public/img/dummy', $filename);
+            $user->img_url = '/storage/img/dummy/' . $filename;
         }
+
+        $user->update($userForm);
+
+        return redirect()->back();
 
         $profile = $user;
         $profileForm = $request->only(['profile', 'address', 'building']);

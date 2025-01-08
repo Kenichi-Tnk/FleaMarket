@@ -20,6 +20,8 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
+        $faker = Faker::create();
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -36,7 +38,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => 'User' . $faker->numberBetween(10000, 99999),
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'img_url' => '/img/default_icon.png',
+            'img_url' => 'storage/img/default_icon.svg',
         ]);
     }
 }

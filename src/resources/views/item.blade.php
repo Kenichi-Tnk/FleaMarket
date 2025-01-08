@@ -9,18 +9,18 @@
         <a class="link-button" href="/purchase/{{ $item->id }}">購入手続きへ</a>
     @endif
     <div class="description-group">
-        <h3 class="descriotion-group__title">商品説明</h3>
+        <h3 class="description-group__title">商品説明</h3>
         <p class="description-group__text">{{ $item->description }}</p>
     </div>
-    <div class="infomation-group">
-        <h3 class="infomation-group__title">商品の情報</h3>
-        <div class="infomation-content">
-            <span class="infomation-content__title">カテゴリー</span>
+    <div class="information-group">
+        <h3 class="information-group__title">商品の情報</h3>
+        <div class="information-content">
+            <span class="information-content__title">カテゴリー</span>
 
         </div>
-        <div class="infomation-content">
-            <span class="infomation-content__title">商品の状態</span>
-            <span class="infomation-content__text">{{ $condition }}</span>
+        <div class="information-content">
+            <span class="information-content__title">商品の状態</span>
+            <span class="information-content__text">{{ $condition }}</span>
         </div>
     </div>
 @endsection

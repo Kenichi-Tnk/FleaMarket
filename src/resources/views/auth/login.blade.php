@@ -6,20 +6,20 @@
 
 @section('main')
 <h2 class="main-title">ログイン</h2>
-<form class="form-content" action="/login" method="post">
+<form class="form-content" action="{{ route('login') }}" method="post">
     @csrf
     <label class="form-content__label">ユーザー名/メールアドレス
         <input class="form-content__input" type="email" name="email" value="{{ old('email') }}">
     </label>
     @error('email')
-        {{ $message }}
+        <div class="form-content__error">{{ $message }}</diV>
     @enderror
 
     <label class="form-content__label">パスワード
         <input class="form-content__input" type="password" name="password">
     </label>
     @error('password')
-        {{ $message }}
+        <div class="form-content__error">{{ $message }}</diV>
     @enderror
 
     <button class="form-content__button" type="submit">ログインする</button>

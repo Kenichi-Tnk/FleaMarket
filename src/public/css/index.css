@@ -32,14 +32,14 @@
     display: none;
     width: 100%;
     padding: 30px 50px;
-    border-top: 2px splid lightgrey;
+    border-top: 2px solid lightgrey;
 }
 
 .tab-content__group-link {
     display: none;
     width: 100%;
     padding: 30px 50px;
-    border-top: 2px splid lightgrey;
+    border-top: 2px solid lightgrey;
 }
 
 .tab-content__label:has(:checked) {

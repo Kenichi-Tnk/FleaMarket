@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-eruiv="X-UA-Compatible" content="ie=edge">
     <title>coachtechフリマサイト</title>
-    <link rel="stylesheet" href="{{ asset('css/sanitaize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     @yield('css')
 </head>
@@ -13,7 +13,7 @@
 <body>
     <header>
         <a class="header__link" href="/">
-            <img class="header__logo" src="{{ asset('img/logo.svg') }}">
+            <img class="header__logo" src="{{ asset('/storage/img/logo.svg') }}">
         </a>
         @if(!request()->is('register', 'login', 'purchase/address/*', 'sell'))
             <form class="header__search" action="/search" method="get">

@@ -5,14 +5,41 @@
 @endsection
 
 @section('main')
+    @if (session('success'))
+        <div class="message-success" id="message">
+            {{ session('success') }}
+        </div>
+        <script src="https:ajax.googleapis.com/ajax/libs/jquery/3.5.1/query.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#message").fadeIn(1000).delay(3000).(fadOut(1000));
+            });
+        </script>
+    @endif
     <h1 class="main-title">プロフィール設定</h1>
+    <script src="https://yubinbamgo.github.io/yubinbango.js" charset="UTF-8"></script>
     <form class="form-content h-adr" action="/mypage/profile/update" method="post" enctype="multipart/formdata">
         @csrf
         <div class="image-group">
-            <img class="image-group__icon" id="preview-image" src="{{ $user->image_url }}">
+            <img class="image-group__icon" src="{{ $user->image_url }}">
             <label class="image-group__label">
-                <input class="image-group__input" type="file" name="file" id="image" onchange="previewFile()">画像を選択する</input>
+                <input class="image-group__input" type="file" name="image" id="image" onchange="previewFile()">画像を選択する
             </label>
+            <script>
+                function previewFile() {
+                    const preview = document.querySelector('.image-group__icon');
+                    const file = document.querySelector('input[type=file]').files[0];
+                    const reader = new FileReader();
+
+                    reader.addEventListener('load', function() {
+                        preview.src = reader.result;
+                    }, false);
+
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    }
+                }
+            </script>
         </div>
 
         <label class="form-content__label">ユーザー名
