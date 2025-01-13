@@ -8,6 +8,10 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Mail\TestMail;
 
 
 /*
@@ -65,10 +69,29 @@ Route::middleware('auth', 'verified')->group(function() {
         Route::post('/payment/select/{item_id}', [PurchaseController::class, 'selectPayment']);
         Route::post('/decide/{item_id}', [PurchaseController::class, 'decidePurchase']);
     });
+
+    // メール認証関係ルート
+    Route::get('/email/verify', EmailVerificationPromptController::class)
+        ->middleware('auth')
+        ->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
+        ->middleware(['auth', 'signed'])
+        ->name('verification.verify');
+
+    Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+        ->middleware(['auth', 'throttle:6,1'])
+        ->name('verification.send');
 });
 
     // 認証不要ルート
 Route::get('/', [IndexController::class, 'index']);
 Route::get('search', [IndexController::class, 'search']);
 Route::get('/item/{item_id}', [ItemController::class, 'index']);
+
+// テストメール送信
+Route::get('/test-email', function() {
+    Mail::to('test-recipient@gmail.com')->send(new TestMail());
+    return 'Test email sent';
+});
 
