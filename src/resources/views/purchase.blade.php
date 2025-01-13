@@ -33,13 +33,18 @@
         <div class="payment-group">
             <div class="header-content">
                 <h3 class="header-content__title">支払い方法</h3>
-                <a class="link-button" href="/purchase/payment/{{ $item->id }}">変更する</a>
             </div>
             <div class="payment-content">
-                <p class="payment-content__text">{{ $paymentMethod ?? ''}}</p>
-                @error('payment_id')
-                    <p class="payment-content__text payment-content__text-error">{{ $errors->first('payment_id') }}</p>
-                @enderror
+                <form id="paymentForm" action="/purchase/payment/select/{{ $item->id }}" method="post">
+                    @csrf
+                    <select name="payment" id="paymentSelect" required>
+                        <option value="">選択してください</option>
+                        @foreach($user->userPayments as $payment)
+                            <option value="{{ $payment->id }}">{{ $payment->method }}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit">変更する</button>
+                </form>
             </div>
         </div>
         <div class="address-group">
@@ -48,8 +53,12 @@
                 <a class="link-button" href="/purchase/address/{{ $item->id }}">変更する</a>
             </div>
             <diV class="address-content">
-                <p class="address-content__text">〒{{ substr($profile->postcode, 0, 3) . '_' . substr($profile->postcode, 3) }}</p>
-                <p class="address-content__text">{{ $profile->address }}<span>{{ $profile->building }}</span></p>
+                @if($profile)
+                    <p class="address-content__text">〒{{ substr($profile->postcode, 0, 3) . '_' . substr($profile->postcode, 3) }}</p>
+                    <p class="address-content__text">{{ $profile->address }}<span>{{ $profile->building }}</span></p>
+                @else
+                    <p class="address-content__text">プロフィールが設定されていません</p>
+                @endif
             </div>
         </div>
     </div>
@@ -72,4 +81,14 @@
         <input type="hidden" name="payment_id" value="{{ $paymentId }}">
         <button class="submit-button" type="submit" onclick="return confirm('購入しますか？')">購入する</button>
     </form>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#paymentSelect').on('click', function() {
+            $(this).toggleClass('open');
+            });
+        });
+    </script>
 @endsection

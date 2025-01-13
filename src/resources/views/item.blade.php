@@ -16,7 +16,6 @@
         <h3 class="information-group__title">商品の情報</h3>
         <div class="information-content">
             <span class="information-content__title">カテゴリー</span>
-
         </div>
         <div class="information-content">
             <span class="information-content__title">商品の状態</span>

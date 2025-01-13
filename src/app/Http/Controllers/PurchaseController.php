@@ -15,7 +15,7 @@ class PurchaseController extends Controller
     {
         $user = Auth::user();
         $item = Item::find($item_id);
-        $profile = $user ?? null;
+        $profile = $user ? $user->profile : null;
         $paymentId = session('paymentId');
         $paymentMethod = session('newPaymentMethod');
 
@@ -23,7 +23,7 @@ class PurchaseController extends Controller
             $paymentMethod = $user->userPayments()->latest('id')->first()->method;
         }
 
-        return view('purchase', compact('item', 'profile', 'paymentId', 'paymentMethod'));
+        return view('purchase', compact('item', 'profile', 'paymentId', 'paymentMethod', 'user'));
     }
 
     public function address($item_id)
@@ -62,7 +62,8 @@ class PurchaseController extends Controller
 
     public function payment($item_id)
     {
-        return view('/payment', compact('item_id'));
+        $payments = Payment::all();
+        return view('payment', compact('item_id', 'payments'));
     }
 
     public function selectPayment(Request $request, $item_id)

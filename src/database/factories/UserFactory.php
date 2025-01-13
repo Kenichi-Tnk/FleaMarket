@@ -15,7 +15,7 @@ class UserFactory extends Factory
     public function definition()
     {
         $faker = $this->faker;
-        
+
         return [
             'name' => 'User' . $faker->numberBetween(1000, 99999),
             'email' => $faker->unique()->safeEmail(),

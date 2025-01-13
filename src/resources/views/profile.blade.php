@@ -21,7 +21,7 @@
     <form class="form-content h-adr" action="/mypage/profile/update" method="post" enctype="multipart/formdata">
         @csrf
         <div class="image-group">
-            <img class="image-group__icon" src="{{ $user->image_url }}">
+            <img class="image-group__icon" src="{{ asset($user->image_url) }}" alt="ユーザーアイコン">
             <label class="image-group__label">
                 <input class="image-group__input" type="file" name="image" id="image" onchange="previewFile()">画像を選択する
             </label>

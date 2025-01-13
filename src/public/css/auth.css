@@ -9,7 +9,7 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    color: reb(255, 73, 73);
+    color: rgb(255, 73, 73);
     background-color: #fff;
     font-size: 2.4rem;
     font-weight: bold;
@@ -72,7 +72,7 @@ main {
     color: deepskyblue;
 }
 
-.form-conten__button:hover,
+.form-content__button:hover,
 .form-content__link:hover {
     opacity: 0.8;
 }
