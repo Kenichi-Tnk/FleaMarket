@@ -124,9 +124,17 @@
             button.addEventListener('click', function(){
                 document.querySelectorAll('.category-button').forEach(btn => btn.classList.remove('selected'));
                 this.classList.add('selected');
-                const selectedCategory = this.value;
-                document.getElementById('category_id').value = selectedCategory;
-                console.log('Selected category;', selectedCategory);
+                const input = this.querySelector('input[type="checkbox"]');
+                if (input) {
+                    const selectedCategory = input.value;
+                    const categoryInput = document.getElementById('category_id');
+                    if (categoryInput) {
+                        categoryInput.value = selectedCategory;
+                    }
+                    console.log('selected category:', selectedCategory);
+                }else{
+                    console.log('Unable to set selected category');
+                }
             });
         });
     </script>
