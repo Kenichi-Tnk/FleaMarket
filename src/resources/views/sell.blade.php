@@ -41,8 +41,8 @@
         <label class="form-content__label">カテゴリー
             <div class="category-buttons">
                 @foreach($categories as $category)
-                    <label>
-                        <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" @if(!empty($item) && in_array($category->id, $item->categories->pluck('id')->toArray())) checked @endif>
+                    <label class="category-button">
+                        <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" {{ !empty($item) && in_array($category->id, $item->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
                         {{ $category->content }}
                     </label>
                 @endforeach

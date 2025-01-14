@@ -132,7 +132,7 @@ main {
     display: none;
 }
 
-.category-buttons input[type="checkbox"]:checked + label {
+.category-buttons input[type="checkbox"]:checked + .category-button {
     background-color: #ceeffe;
     border-color: #1e90ff;
 }
