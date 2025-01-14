@@ -41,12 +41,14 @@
         <label class="form-content__label">カテゴリー
             <div class="category-buttons">
                 @foreach($categories as $category)
-                    <button type="button" class="category-button" value="{{ $category->id }}">{{ $category->content}}</button>
+                    <label>
+                        <input type="checkbox" name="category_ids[]" value="{{ $category->id }}" @if(!empty($item) && in_array($category->id, $item->categories->pluck('id')->toArray())) checked @endif>
+                        {{ $category->content }}
+                    </label>
                 @endforeach
             </div>
-            <input type="hidden" name="category_id" id="category_id">
         </label>
-        @error('category_id')
+        @error('category_ids')
             <div class="form-content__error">{{ $message }}</div>
         @enderror
 

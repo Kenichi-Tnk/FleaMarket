@@ -49,10 +49,17 @@ class SellController extends Controller
         $form['price'] = str_replace(',', '', $form['price']);
         $newItem = Item::create($form);
 
-        $categoryItems = new Category_item();
-        $categoryItems->item_id = $newItem->id;
-        $categoryItems->category_id = $request->category_id;
-        $categoryItems->save();
+        if ($request->has('category_ids')) {
+            $categoryIds = $request->input('category_ids');
+            foreach ($categoryIds as $categoryId) {
+                \DB::table('category_items')->insert([
+                    'item_id' => $newItem->id,
+                    'category_id' => $categoryId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
 
         return redirect()->back()->with('success', '出品しました');
     }
@@ -72,7 +79,21 @@ class SellController extends Controller
         if(isset($form['price'])) {
             $form['price'] = str_replace(',', '', $form['price']);
         }
-        Item::find($item_id)->update($form);
+        $item = Item::find($item_id);
+        $item->update($form);
+
+        \DB::table('category_items')->where('item_id', $item_id)->delete();
+        if ($request->has('category_ids')) {
+            $categoryIds = $request->input('category_ids');
+            foreach ($categoryIds as $categoryId) {
+                \DB::table('category_items')->insert([
+                    'item_id' => $item->id,
+                    'category_id' => $categoryId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
 
         return redirect()->back()->with('success', '変更しました');
     }
