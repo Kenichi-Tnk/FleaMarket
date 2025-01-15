@@ -40,7 +40,7 @@ Route::post('register', [RegisterController::class, 'register']);
     //認証必要ルート
 Route::middleware('auth', 'verified')->group(function() {
     Route::prefix('mypage')->group(function() {
-        Route::get('/', [MypageController::class, 'index']);
+        Route::get('/', [MypageController::class, 'index'])->name('mypage');
         Route::get('/profile', [MypageController::class, 'profile']);
         Route::post('/profile/update', [MypageController::class, 'update'])->name('profile.store');
     });
@@ -59,6 +59,7 @@ Route::middleware('auth', 'verified')->group(function() {
     Route::get('sell/{item_id}', [SellController::class, 'index']);
     Route::post('/sell', [SellController::class, 'create']);
     Route::post('/sell/{item_id}', [SellController::class, 'edit']);
+    Route::resource('items', ItemController::class);
 
     // 購入関係
     Route::prefix('purchase')->group(function() {

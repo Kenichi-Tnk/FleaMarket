@@ -17,8 +17,11 @@
     @endif
 
     <h2 class="main-title">商品の出品</h2>
-    <form class="form-content" action="{{ isset($item_id) ? '/sell/' . $item_id: '/sell/' }}" method="post" enctype="multipart/form-data">
+    <form class="form-content" action="{{ isset($item) ? route('items.update', $item->id) : route('items.store') }}" method="post" enctype="multipart/form-data">
         @csrf
+        @if(isset($item))
+            @method('PUT')
+        @endif
         <span class="form-content__label">商品の画像
             @if($item)
                 <a class="image-link" href="{{ $item->img_url }}">
@@ -110,30 +113,25 @@
         }
 
         document.addEventListener('DOMContentLoaded', function(){
-            const selectedCategory = '{{ $item->category_id ?? '' }}';
-            document.querySelectorAll('.category-button').forEach(button => {
-                if(button.value === selectedCategory){
-                    button.classList.add('selected');
+            @if(!empty($item))
+                const selectedCategories = @json($item->categories->pluck('id')->toArray() ?? []);
+                document.querySelectorAll('.category-button input[type="checkbox"]').forEach(checkbox => {
+                if(selectedCategories.includes(parseInt(checkbox.value))){
+                    checkbox.checked = true;
+                    checkbox.closest('.category-button').classList.add('selected');
                 }
             });
+            @endif
         });
     </script>
 
     <script>
-        document.querySelectorAll('.category-button').forEach(button => {
-            button.addEventListener('click', function(){
-                document.querySelectorAll('.category-button').forEach(btn => btn.classList.remove('selected'));
-                this.classList.add('selected');
-                const input = this.querySelector('input[type="checkbox"]');
-                if (input) {
-                    const selectedCategory = input.value;
-                    const categoryInput = document.getElementById('category_id');
-                    if (categoryInput) {
-                        categoryInput.value = selectedCategory;
-                    }
-                    console.log('selected category:', selectedCategory);
-                }else{
-                    console.log('Unable to set selected category');
+        document.querySelectorAll('.category-button input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function(){
+                if (this.checked) {
+                    this.closest('.category-button').classList.add('selected');
+                } else {
+                    this.closest('.category-button').classList.remove('selected');
                 }
             });
         });

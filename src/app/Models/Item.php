@@ -40,16 +40,11 @@ class Item extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'category_items');
+        return $this->belongsToMany(Category::class, 'category_item');
     }
 
     public function condition()
     {
         return $this->belongsTo(Condition::class);
-    }
-
-    public function shops()
-    {
-        return $this->belongsToMany(Shop::class, 'shop_items');
     }
 }

@@ -26,7 +26,7 @@
                     <div class="sold-out__mark">SOLD OUT</div>
                 @endif
                 <a class="tab-content__content-link" href="/item/{{ $item->id }}">
-                    <img class="tab-content__content-image" src="{{ asset($item->img_url) }}">
+                    <img class="tab-content__content-image" src="{{ asset('storage/' . $item->img_url) }}">
                 </a>
             </div>
             @endforeach
