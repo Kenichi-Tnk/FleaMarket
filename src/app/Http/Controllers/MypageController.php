@@ -12,13 +12,13 @@ class MypageController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $img_url = $user->img_url;
+        $img_url = $user->img_url ? $user->img_url : 'storage/img/default_icon.svg';
         $sellItems = $user->items;
         $soldItems = $user->soldToItems ?? null;
 
         $data = [
             'user' => $user,
-            'img_url' => $img_url,
+            'img_url' => asset($img_url),
             'sellItems' => $sellItems,
             'soldItems' => $soldItems,
         ];
@@ -42,8 +42,9 @@ class MypageController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('storage/img/dummy', $filename);
-            $user->img_url = '/storage/img/dummy/' . $filename;
+            $path = $file->storeAs('public/img/dummy', $filename);
+            $user->img_url = 'storage/img/dummy/' . $filename;
+            $user->save();
         }
 
         return redirect('/')->with('success', 'プロフィールを変更しました');
