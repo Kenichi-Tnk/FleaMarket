@@ -13,7 +13,7 @@
             @foreach($items as $item)
                 <div class="tab-content__content">
                     <a class="tab-content__content-link" href="/item/{{ $item->id }}">
-                        <img class="tab-content__content-image" src="{{ $item->img_url }}">
+                        <img class="tab-content__content-image" src="{{ 'storage/' . $item->img_url }}">
                     </a>
                 </div>
             @endforeach
@@ -33,7 +33,7 @@
                             <div class="sold-out__mark">SOLD OUT</div>
                         @endif
                         <a class="tab-content__content-link" href="/item/{{ $favoriteItem->id }}">
-                            <img class="tab-content__content-image" src="{{ $favoriteItem->img_url }}">
+                            <img class="tab-content__content-image" src="{{ asset('storage/' . $favoriteItem->img_url) }}">
                         </a>
                     </div>
                 @empty

@@ -36,17 +36,31 @@ class MypageController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email' . Auth::id(),
+            'postcode' => 'nullable|string|max:10',
+            'address' => 'nullable|string|max:255',
+            'building' => 'nullable|string|max:255',
+            'file' => 'nullable|image|max:2048',
+        ]);
+
         $user = Auth::user();
-        $userForm = $request->only(['name', 'postcode', 'address', 'building']);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->postcode = $request->input('postcode');
+        $user->address = $request->input('address');
+        $user->building = $request->input('building');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/img/dummy', $filename);
-            $user->img_url = 'storage/img/dummy/' . $filename;
-            $user->save();
+            $path = $file->storeAs('public/img/icons', $filename);
+            $user->img_url = 'img/icons' . $filename;
         }
 
-        return redirect('/')->with('success', 'プロフィールを変更しました');
+        $user->save();
+
+        return redirect()->route('mypage')->with('success', 'プロフィールを変更しました');
     }
 }

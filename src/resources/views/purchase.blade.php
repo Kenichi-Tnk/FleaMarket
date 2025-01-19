@@ -23,7 +23,7 @@
     <div class="section-container">
         <div class="section-group">
             <div class="image-content">
-                <img class="image-content__image" src="{{ $item->img_url }}" alt="商品画像">
+                <img class="image-content__image" src="{{ asset('storage/' . $item->img_url) }}" alt="商品画像">
             </div>
             <div class="item-content">
                 <h2 class="item-content__title">{{ $item->name }}</h2>

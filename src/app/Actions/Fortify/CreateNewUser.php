@@ -38,7 +38,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => 'User' . $faker->numberBetween(10000, 99999),
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'img_url' => 'storage/img/default_icon.svg',
+            'img_url' => 'img/icons/default_icon.svg',
         ]);
     }
 }

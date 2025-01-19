@@ -17,12 +17,12 @@ class ItemFactory extends Factory
     public function definition()
     {
         $faker = $this->faker;
-        $imageFiles = File::files(public_path('/storage/img/dummy'));
-        $randomImage = '/storage/img/dummy/' . $imageFiles[array_rand($imageFiles)]->getFilename();
+        $imageFiles = File::files(storage_path('app/public/img/dummy'));
+        $randomImage = 'img/dummy/' . $imageFiles[array_rand($imageFiles)]->getFilename();
 
         return [
             'name' => $faker->word(),
-            'price' => $faker->numberBetween(1000,30000),
+            'price' => $faker->numberBetween(1000, 30000),
             'description' => $faker->realText(50),
             'img_url' => $randomImage,
             'user_id' => User::inRandomOrder()->first()->id,

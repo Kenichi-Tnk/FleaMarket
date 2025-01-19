@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-eruiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>coachtechフリマサイト</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
@@ -13,7 +13,7 @@
 <body>
     <header>
         <a class="header__link" href="/">
-            <img class="header__logo" src="{{ asset('/storage/img/logo.svg') }}">
+            <img class="header__logo" src="{{ asset('/storage/img/icons/logo.svg') }}">
         </a>
         @if(!request()->is('register', 'login', 'purchase/address/*', 'sell'))
             <form class="header__search" action="/search" method="get">
@@ -61,7 +61,7 @@
                     <li class="menu__item">
                         <button class="menu__item-button" type="submit" >
                             ログアウト
-                        </button>                    
+                        </button>
                     </li>
                 </form>
                 <li class="menu__item"><a class="menu__item-link" href="/mypage">マイページ</a></li>
@@ -80,7 +80,7 @@
         @endif
     </header>
     <main>
-        <form class="search-form" id="search-form" action="/sesarch" method="get" style="display: none;">
+        <form class="search-form" id="search-form" action="/search" method="get" style="display: none;">
             @csrf
             <input class="search-input" type="text" name="searchText" placeholder="何をお探しですか？">
         </form>

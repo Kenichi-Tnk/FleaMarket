@@ -38,18 +38,18 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('register', [RegisterController::class, 'register']);
 
     //認証必要ルート
-Route::middleware('auth', 'verified')->group(function() {
+Route::middleware('auth')->group(function() {
     Route::prefix('mypage')->group(function() {
         Route::get('/', [MypageController::class, 'index'])->name('mypage');
         Route::get('/profile', [MypageController::class, 'profile']);
-        Route::post('/profile/update', [MypageController::class, 'update'])->name('profile.store');
+        Route::post('/profile/update', [MypageController::class, 'update'])->name('profile.update');
     });
 
 
     // 商品関係
     Route::prefix('item')->group(function() {
         Route::get('/comment/{item_id}', [ItemController::class, 'comment']);
-        Route::post('/comment/store/{item_id}', [ItemController::class, 'store']);
+        Route::post('/comment/store/{item_id}', [ItemController::class, 'storeComment']);
         Route::post('/favorite/{item_id}', [ItemController::class, 'favorite']);
         Route::delete('/unfavorite/{item_id}', [ItemController::class, 'unfavorite']);
     });
@@ -95,4 +95,3 @@ Route::get('/test-email', function() {
     Mail::to('test-recipient@gmail.com')->send(new TestMail());
     return 'Test email sent';
 });
-
