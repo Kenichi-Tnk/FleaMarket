@@ -12,7 +12,7 @@ class MypageController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $img_url = $user->img_url ? $user->img_url : 'storage/img/default_icon.svg';
+        $img_url = $user->img_url ? asset('storage/' . $user->img_url) : asset('storage/img/default_icon.svg');
         $sellItems = $user->items;
         $soldItems = $user->soldToItems ?? null;
 
@@ -38,7 +38,6 @@ class MypageController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email' . Auth::id(),
             'postcode' => 'nullable|string|max:10',
             'address' => 'nullable|string|max:255',
             'building' => 'nullable|string|max:255',
@@ -47,16 +46,19 @@ class MypageController extends Controller
 
         $user = Auth::user();
         $user->name = $request->input('name');
-        $user->email = $request->input('email');
         $user->postcode = $request->input('postcode');
         $user->address = $request->input('address');
         $user->building = $request->input('building');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/img/icons', $filename);
-            $user->img_url = 'img/icons' . $filename;
+            if($file->getClientOriginalName() !== 'default_icon.svg') {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('public/img/icons', $filename);
+                $user->img_url = 'img/icons/' . $filename;
+            }else{
+                $user->img_url = 'img/default_icon.svg';
+            }
         }
 
         $user->save();

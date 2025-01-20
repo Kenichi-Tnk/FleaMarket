@@ -16,7 +16,7 @@
         <h3 class="information-group__title">商品の情報</h3>
         <div class="information-content">
             <span class="information-content__title">カテゴリー</span>
-            <span class="information-content__text">{{ $item->categories->pluck('name')->join(', ') }}</span>
+            <span class="information-content__text">{{ $item->categories->pluck('content')->join(', ') }}</span>
         </div>
         <div class="information-content">
             <span class="information-content__title">商品の状態</span>

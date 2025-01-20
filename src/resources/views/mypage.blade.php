@@ -21,12 +21,13 @@
         </label>
         <div class="tab-content__group">
             @foreach($sellItems as $item)
-            <div>
+            <div class="tab-content__content">
                 @if($item->soldToUsers()->exists())
                     <div class="sold-out__mark">SOLD OUT</div>
                 @endif
                 <a class="tab-content__content-link" href="/item/{{ $item->id }}">
                     <img class="tab-content__content-image" src="{{ asset('storage/' . $item->img_url) }}">
+                    <div class="tab-content__content-title">{{ $item->name }}</div>
                 </a>
             </div>
             @endforeach
@@ -45,6 +46,7 @@
                         <div class="sold-out__mark">SOLD OUT</div>
                         <a class="tab-content__content-link" href="/item/{{ $item->id }}">
                             <img class="tab-content__content-image" src="{{ asset('storage/' . $item->img_url) }}">
+                            <div class="tab-content__content-title">{{ $item->name }}</div>
                         </a>
                     </div>
                 @endforeach

@@ -14,6 +14,7 @@
                 <div class="tab-content__content">
                     <a class="tab-content__content-link" href="/item/{{ $item->id }}">
                         <img class="tab-content__content-image" src="{{ 'storage/' . $item->img_url }}">
+                        <div class="tab-content__content-title">{{ $item->name }}</div>
                     </a>
                 </div>
             @endforeach
@@ -34,6 +35,7 @@
                         @endif
                         <a class="tab-content__content-link" href="/item/{{ $favoriteItem->id }}">
                             <img class="tab-content__content-image" src="{{ asset('storage/' . $favoriteItem->img_url) }}">
+                            <div class="tab-content__content-title">{{ $favoriteItem->name }}</div>
                         </a>
                     </div>
                 @empty

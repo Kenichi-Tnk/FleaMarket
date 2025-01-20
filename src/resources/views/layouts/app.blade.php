@@ -47,7 +47,7 @@
             </nav>
 
             <a class="search-link">
-                <img class="search-icon" src="{{ asset('img/search.svg') }}">
+                <img class="search-icon" src="{{ asset('storage/img/icons/search.svg') }}">
             </a>
 
             <input class="menu-btn" type="checkbox" id="menu-btn">
