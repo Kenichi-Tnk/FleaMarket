@@ -27,8 +27,8 @@
                 @endif
                 <a class="tab-content__content-link" href="/item/{{ $item->id }}">
                     <img class="tab-content__content-image" src="{{ asset('storage/' . $item->img_url) }}">
-                    <div class="tab-content__content-title">{{ $item->name }}</div>
                 </a>
+                <div class="tab-content__content-title">{{ $item->name }}</div>
             </div>
             @endforeach
 
