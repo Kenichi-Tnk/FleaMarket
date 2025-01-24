@@ -21,7 +21,7 @@ class LoginController extends Controller
         }
 
         return redirect()->back()->withErrors([
-            'email' => 'the provided credentials do not mach our records.'
+            'email' => 'ログイン情報が登録されていません。'
         ]);
     }
 

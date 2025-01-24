@@ -13,7 +13,7 @@ class ProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'postcode' => ['required', 'regex:/^\d{3}-\d{4}$/'],
+            'address' => ['required', 'string', 'max:255'],
+            'building' => ['required', 'string', 'max:255'],
+            'profile_image' => 'mimes:jpeg,png,svg'
         ];
     }
 }
