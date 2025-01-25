@@ -88,7 +88,7 @@ Route::middleware('auth')->group(function() {
     // 認証不要ルート
 Route::get('/', [IndexController::class, 'index']);
 Route::get('search', [IndexController::class, 'search']);
-Route::get('/item/:item_id', [ItemController::class, 'index']);
+Route::get('/item/{item_id}', [ItemController::class, 'index']);
 
 // テストメール送信
 Route::get('/test-email', function() {
