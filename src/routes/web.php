@@ -5,6 +5,8 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -47,12 +49,12 @@ Route::middleware('auth', 'verified')->group(function() {
 
 
     // 商品関係
-    Route::prefix('item')->group(function() {
-        Route::get('/comment/{item_id}', [ItemController::class, 'comment']);
-        Route::post('/comment/store/{item_id}', [ItemController::class, 'storeComment']);
-        Route::post('/favorite/{item_id}', [ItemController::class, 'favorite']);
-        Route::delete('/unfavorite/{item_id}', [ItemController::class, 'unfavorite']);
-    });
+        Route::get('/item/{item_id}', [ItemController::class, 'index'])->name('item.show');
+        Route::get('/item/{item_id}/comments', [CommentController::class, 'index'])->name('comments.index');
+        Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comments.store');
+        Route::post('/item/{item_id}/favorite', [FavoriteController::class, 'store'])->name('favorites.store');
+        Route::delete('/item/{item_id}/favorite', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
 
     // 出品関係
     Route::get('/sell', [SellController::class, 'index']);
@@ -88,7 +90,7 @@ Route::middleware('auth', 'verified')->group(function() {
     // 認証不要ルート
 Route::get('/', [IndexController::class, 'index']);
 Route::get('search', [IndexController::class, 'search']);
-Route::get('/item/{item_id}', [ItemController::class, 'index']);
+Route::get('/item/{item_id}', [ItemController::class, 'index'])->name('item.show');
 
 // テストメール送信
 Route::get('/test-email', function() {

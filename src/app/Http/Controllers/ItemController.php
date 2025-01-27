@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Comment;
 use App\Models\Item;
-use App\Models\Favorite;
-use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,12 +11,7 @@ class ItemController extends Controller
 {
     private function loadItemWithRelations($item_id)
     {
-        return Item::with('comments.user', 'categories', 'condition')->findOrFail($item_id);
-    }
-
-    private function checkUserFavorited($item)
-    {
-        return $item->favoriteUsers()->where('user_id', Auth::id())->exists();
+        return Item::with( 'categories', 'condition', 'favoriteUsers')->findOrFail($item_id);
     }
 
     public function index($item_id)
@@ -27,42 +19,14 @@ class ItemController extends Controller
         $item = $this->loadItemWithRelations($item_id);
         $category = $item->categories->first();
 
-        return view('item', [
+        return view('item_detail', [
             'item' => $item,
             'favoritesCount' => $item->favoriteUsers->count(),
             'commentsCount' => $item->comments->count(),
             'condition' => $item->condition->condition,
-            'link' => "/item/comment/{$item_id}",
-            'userFavorited' => $this->checkUserFavorited($item),
+            'userFavorited' => $item->favoriteUsers()->where('user_id', Auth::id())->exists(),
             'userItem' => $item->user_id == Auth::id(),
         ]);
-    }
-
-    public function comment($item_id)
-    {
-        $item = $this->loadItemWithRelations($item_id);
-        $userFavorited = $this->checkUserFavorited($item);
-        $comments = $item->comments;
-
-        $comments = $comments->map(function ($comment) {
-            return [
-                'comment' => $comment->comment,
-                'userId' => $comment->user_id,
-                'userName' => $comment->user->name,
-                'userIcon' => $comment->user->img_url ? asset($comment->user->img_url) : asset('storage/img/default_icon.svg'),
-            ];
-        });
-
-        $data = [
-            'item' => $item,
-            'favoritesCount' => $item->favoriteUsers->count(),
-            'commentsCount' => $item->comments->count(),
-            'comments' => $comments,
-            'link' => "/item/comment/{$item_id}",
-            'userFavorited' => $userFavorited,
-        ];
-
-        return view('comment', $data);
     }
 
     public function store(Request $request)
@@ -95,21 +59,4 @@ class ItemController extends Controller
         return redirect()->route('mypage')->with('success', '商品を出品しました');
     }
 
-}
-
-    public function favorite($item_id)
-    {
-        $favorite = new Favorite();
-        $favorite->user_id = Auth::id();
-        $favorite->item_id = $item_id;
-        $favorite->save();
-
-        return redirect()->back();
-    }
-
-    public function unfavorite($item_id)
-    {
-        Auth::user()->favoriteItems()->detach($item_id);
-        return redirect()->back();
-    }
 }
