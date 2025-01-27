@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Item;
 use App\Models\Favorite;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -94,19 +95,7 @@ class ItemController extends Controller
         return redirect()->route('mypage')->with('success', '商品を出品しました');
     }
 
-    public function storeComment(Request $request, $item_id)
-    {
-        $user_id = Auth::user()->id;
-        $commentText = $request->input('comment');
-
-        $comment = new Comment();
-        $comment->user_id = $user_id;
-        $comment->item_id = $item_id;
-        $comment->comment = $commentText;
-        $comment->save();
-
-        return redirect()->back();
-    }
+}
 
     public function favorite($item_id)
     {

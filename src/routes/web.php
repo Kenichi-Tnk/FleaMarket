@@ -38,7 +38,7 @@ Route::get('register', [RegisterController::class, 'showRegistrationForm'])->nam
 Route::post('register', [RegisterController::class, 'register']);
 
     //認証必要ルート
-Route::middleware('auth')->group(function() {
+Route::middleware('auth', 'verified')->group(function() {
     Route::prefix('mypage')->group(function() {
         Route::get('/', [MypageController::class, 'index'])->name('mypage');
         Route::get('/profile', [MypageController::class, 'profile']);
