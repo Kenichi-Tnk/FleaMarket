@@ -20,7 +20,6 @@
     <div class="detail-content">
         <div class="item-group">
             <h2 class="item-group__title">{{$item->name}}</h2>
-            <span class="item-group__brand">{{$item->brand}}</span>
             <p class="item-group__price">￥{{ number_format($item->price) }}</p>
             <div class="item-unit">
                 @if($userFavorited)
@@ -42,7 +41,9 @@
                     </form>
                 @endif
                 <div class="comment-content">
-                        <img class="item-icon__image" src="{{ asset('storage/img/icons/comment.svg') }}" alt="コメント">
+                        <button class="item-icon__button" onclick="location.href='{{ $link }}'"></button>
+                        <img class="item-icon__image"
+                            src="{{ request()->is('item/comment/*') ? asset('storage/img/icons/comment.svg') : asset('storage/img/icons/comment_red.svg') }}" alt="コメント">
                         <p class="comments-count">{{ $commentsCount }}</p>
                 </div>
             </div>
@@ -77,7 +78,7 @@
             @endif
         @endforeach
     </div>
-    <form class="form-group" action="{{ route('comments.store', ['item_id' => $item->id]) }}" method="post">
+    <form class="form-group" id="comment-form" action="{{ route('comments.store', ['item_id' => $item->id]) }}" method="post">
         @csrf
         <label class="form-group__label">商品へのコメント
             <textarea class="form-group__textarea" name="comment" rows="5" required></textarea>
