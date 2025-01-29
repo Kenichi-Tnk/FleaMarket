@@ -24,11 +24,11 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'required | string | max:255',
+            'comment' => 'required|string|max:255',
         ];
     }
 
-    public function massages()
+    public function messages()
     {
         return [
             'comment.required' => 'コメントを入力してください',

@@ -18,23 +18,15 @@ class ItemController extends Controller
     {
         $item = $this->loadItemWithRelations($item_id);
         $category = $item->categories->first();
-        $comments = $item->comments->map(function ($comment){
-            return [
-                'comment' => $comment->comment,
-                'userId' => $comment->user_id,
-                'userName' => $comment->user->name,
-                'userIcon' => $comment->user->img_url ? asset($comment->user->img_url) : asset('storage/img/default_icon.svg'),
-            ];
-        });
 
-        return view('item_detail', [
+        return view('item', [
             'item' => $item,
             'favoritesCount' => $item->favoriteUsers->count(),
             'commentsCount' => $item->comments->count(),
-            'comments' => $comments,
             'condition' => $item->condition->condition,
             'userFavorited' => $item->favoriteUsers()->where('user_id', Auth::id())->exists(),
             'userItem' => $item->user_id == Auth::id(),
+            'link' => "/item/comment/{$item_id}",
         ]);
     }
 

@@ -140,7 +140,7 @@ main {
     background-color: rgb(73, 128, 255);
 }
 
-.link-button--disanled {
+.link-button--disabled {
     background-color: lightgrey;
 }
 
