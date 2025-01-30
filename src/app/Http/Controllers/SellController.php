@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SellRequest;
 use App\Models\Category;
-use App\Models\Category_item;
+use App\Models\CategoryItem;
 use App\Models\Condition;
 use App\Models\Item;
 use Illuminate\Support\Facades\Storage;

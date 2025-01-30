@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Item;
+use App\Models\Favorite;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +14,12 @@ class ItemController extends Controller
 {
     private function loadItemWithRelations($item_id)
     {
-        return Item::with( 'categories', 'condition', 'favoriteUsers')->findOrFail($item_id);
+        return Item::with( 'comments.user', 'condition', 'categories')->findOrFail($item_id);
+    }
+
+    private function checkUserFavorited($item)
+    {
+        return $item->favoriteUsers()->where('user_id', Auth::id())->exists();
     }
 
     public function index($item_id)
@@ -24,40 +32,68 @@ class ItemController extends Controller
             'favoritesCount' => $item->favoriteUsers->count(),
             'commentsCount' => $item->comments->count(),
             'condition' => $item->condition->condition,
-            'userFavorited' => $item->favoriteUsers()->where('user_id', Auth::id())->exists(),
-            'userItem' => $item->user_id == Auth::id(),
             'link' => "/item/comment/{$item_id}",
+            'userFavorited' => $this->checkUserFavorited($item),
+            'userItem' => $item->user_id == Auth::id(),
         ]);
     }
 
-    public function store(Request $request)
+    public function comment($item_id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|integer|min:1',
-            'condition_id' => 'required|integer',
-            'category_ids' => 'required|array',
-            'category_ids.*' => 'integer|exists:categories,id',
-            'img_url' => 'nullable|image|max:2048',
-        ]);
+        $item = $this->loadItemWithRelations($item_id);
+        $userFavorited = $this->checkUserFavorited($item_id);
+        $comments = $item->comments;
 
-        $item = new Item();
-        $item->name = $request->name;
-        $item->description = $request->description;
-        $item->price = $request->price;
-        $item->condition_id = $request->condition_id;
-        $item->user_id = Auth::id();
+        $comments = $comments->map(function ($comment) {
+            return [
+                'comment' => $comment->comment,
+                'UserId' => $comment->user_id,
+                'userName' => $comment->user->name,
+                'useIcon' => $comment->user->img_url ? asset($comment->user->img_url) : asset('storage/img/default_icon.svg'),
+            ];
+        });
 
-        if ($request->hasFile('img_url')) {
-            $path = $request->file('img_url')->store('public/img/items');
-            $item->img_url = str_replace('public/', '', $path);
-        }
+        $data = [
+            'item' => $item,
+            'favoritesCount' => $item->favoriteUsers->count(),
+            'commentsCount' => $item->comments->count(),
+            'comments' => $comments,
+            'link' => "/item/comment/{$item_id}",
+            'userFavorited' => $userFavorited,
+        ];
 
-        $item->save();
-        $item->categories()->sync($request->category_ids);
+        return view('comment', $data);
+    }
 
-        return redirect()->route('mypage')->with('success', '商品を出品しました');
+    public function store(CommentRequest $request)
+    {
+        $user_id = Auth::user()->id;
+        $commentText = $request->input('comment');
+
+        $comment = new Comment();
+        $comment->user_id = Auth::id;
+        $comment->item = $item_id;
+        $comment->comment = $commentText;
+        $comment->save();
+
+        return redirect()->back()->with('success', 'コメントを追加しました');
+    }
+
+    public function favorite($item_id)
+    {
+        $favorite = new Favorite();
+        $favorite->user_id = Auth::id();
+        $favorite->item_id = $item_id;
+        $favorite->save();
+
+        return redirect()->back()->with('success', 'お気に入りに追加しました');
+    }
+
+    public function unfavorite($item_id)
+    {
+        Auth::user()->favoriteItems()->detach($item_id);
+
+        return redirect()->back()->with('success', 'お気に入りから削除しました');
     }
 
 }

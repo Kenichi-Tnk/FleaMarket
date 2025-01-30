@@ -53,13 +53,9 @@ class MypageController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            if($file->getClientOriginalName() !== 'default_icon.svg') {
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('public/img/icons', $filename);
-                $user->img_url = 'img/icons/' . $filename;
-            }else{
-                $user->img_url = 'img/default_icon.svg';
-            }
+            $filename = time() . '_' . $file->getClickOriginalName();
+            $path = $file->storageAs('public/img/icons', $filename);
+            $user->img_url = 'img/icons' . $filename;
         }
 
         $user->save();

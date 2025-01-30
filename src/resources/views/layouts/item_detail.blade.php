@@ -23,7 +23,7 @@
             <p class="item-group__price">￥{{ number_format($item->price) }}</p>
             <div class="item-unit">
                 @if($userFavorited)
-                    <form class="form-content" action="{{ route('favorites.destroy', ['item_id' => $item->id]) }}" method="post">
+                    <form class="form-content" action="/item/unfavorite/{{ $item->id }}" method="post">
                         @method('delete')
                         @csrf
                         <button class="item-icon__button" type="submit">
@@ -32,7 +32,7 @@
                         </button>
                     </form>
                 @else
-                    <form action="{{ route('favorites.store', ['item_id' => $item->id]) }}" method="post">
+                    <form action="/item/favorite/{{ $item->id }}" method="post">
                         @csrf
                         <button class="item-icon__button" type="submit">
                             <img class="itm-icon__image" src="{{ asset('storage/img/icons/star.svg') }}" alt="お気に入り">
@@ -41,11 +41,14 @@
                     </form>
                 @endif
                 <div class="comment-content">
-                        <button class="item-icon__button" onclick="location.href='{{ $link }}'"></button>
-                        <img class="item-icon__image"
-                            src="{{ request()->is('item/comment/*') ? asset('storage/img/icons/comment.svg') : asset('storage/img/icons/comment_red.svg') }}" alt="コメント">
+                    <button class="item-icon__button" onclick="location.href='{{ $link }}'">
+                        <img class="item-icon__image" src="{{ request()->is('item/comment/*') ? asset('storage/img/icons/comment.svg')
+                        : asset('storage/img/icons/comment_red.svg') }}" alt="コメント">
                         <p class="comments-count">{{ $commentsCount }}</p>
+                    </button>
                 </div>
             </div>
         </div>
+        @yield('content')
+    </div>
 @endsection

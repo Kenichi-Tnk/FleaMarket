@@ -38,6 +38,4 @@
         </label>
         <button class="submit-button" type="submit" onclick="return confirm('コメントを送信しますか？')">コメントを送信する</button>
     </form>
-        @yield('content')
-    </div>
 @endsection

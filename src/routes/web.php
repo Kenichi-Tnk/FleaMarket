@@ -49,10 +49,13 @@ Route::middleware('auth', 'verified')->group(function() {
 
 
     // 商品関係
-        Route::get('/item/{item_id}/comments', [CommentController::class, 'index'])->name('comments.index');
-        Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])->name('comments.store');
-        Route::post('/item/{item_id}/favorite', [FavoriteController::class, 'store'])->name('favorites.store');
-        Route::delete('/item/{item_id}/favorite', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+    Route::prefix('item')->group(function() {
+        Route::get('/comment/{item_id}', [ItemController::class, 'comment']);
+        Route::post('/comment/store/{item_id}', [ItemController::class, 'store']);
+        Route::post('/favorite/{item_id}', [ItemController::class, 'favorite']);
+        Route::delete('/unfavorite/{item_id}', [ItemController::class, 'unfavorite']);
+    });
+
 
 
     // 出品関係
