@@ -31,7 +31,7 @@
         @endforeach
     </div>
 
-    <form class="form-group" id="comment-form" action="{{ route('comments.store', ['item_id' => $item->id]) }}" method="post">
+    <form class="form-group" action="/item/comment/store/{{ $item->id }}" method="post">
         @csrf
         <label class="form-group__label">商品へのコメント
             <textarea class="form-group__textarea" name="comment" rows="5" required></textarea>

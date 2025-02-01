@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SellController;
@@ -31,19 +32,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-    //認証関係
+    // 認証不要ルート
+Route::get('/', [IndexController::class, 'index']);
+Route::get('search', [IndexController::class, 'search']);
+Route::get('/item/{item_id}', [ItemController::class, 'index'])->name('item.show');
+
+    //ログイン・ログアウト
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
+    //ユーザー登録
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('register', [RegisterController::class, 'register']);
 
     //認証必要ルート
 Route::middleware('auth', 'verified')->group(function() {
+
+    // マイページ関係
     Route::prefix('mypage')->group(function() {
         Route::get('/', [MypageController::class, 'index'])->name('mypage');
-        Route::get('/profile', [MypageController::class, 'profile']);
+        Route::get('/profile', [MypageController::class, 'profile'])->name('profile');
         Route::post('/profile/update', [MypageController::class, 'update'])->name('profile.update');
     });
 
@@ -67,20 +76,21 @@ Route::middleware('auth', 'verified')->group(function() {
 
     // 購入関係
     Route::prefix('purchase')->group(function() {
-        Route::get('/{item_id}', [PurchaseController::class, 'index']);
-        Route::get('/address/{item_id}', [PurchaseController::class, 'address']);
-        Route::post('/address/update/{item_id}', [PurchaseController::class, 'updateAddress']);
-        Route::get('/payment/{item_id}', [PurchaseController::class, 'payment']);
-        Route::post('/payment/select/{item_id}', [PurchaseController::class, 'selectPayment']);
-        Route::post('/decide/{item_id}', [PurchaseController::class, 'decidePurchase']);
+        Route::get('/{item_id}', [PurchaseController::class, 'index'])->name('purchase.index');
+        Route::get('/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
+        Route::post('/address/update/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.updateAddress');
+        Route::post('/payment/select/{item_id}', [PurchaseController::class, 'selectPayment'])->name('purchase.selectPayment');
+        Route::post('/decide/{item_id}', [PurchaseController::class, 'decidePurchase'])->name('purchase.decide');
+        Route::get('/success/{item_id}', [PurchaseController::class, 'success'])->name('purchase.success');
+        Route::get('/cancel/{item_id}', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
     });
 
     // メール認証関係ルート
-    Route::get('/email/verify', EmailVerificationPromptController::class)
+    Route::get('/email/verify', [EmailVerificationPromptController::class, '__invoke'])
         ->middleware('auth')
         ->name('verification.notice');
 
-    Route::get('/email/verify/{id}/{hash}', VerifyEmailController::class)
+    Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
         ->middleware(['auth', 'signed'])
         ->name('verification.verify');
 
@@ -88,11 +98,6 @@ Route::middleware('auth', 'verified')->group(function() {
         ->middleware(['auth', 'throttle:6,1'])
         ->name('verification.send');
 });
-
-    // 認証不要ルート
-Route::get('/', [IndexController::class, 'index']);
-Route::get('search', [IndexController::class, 'search']);
-Route::get('/item/{item_id}', [ItemController::class, 'index'])->name('item.show');
 
 // テストメール送信
 Route::get('/test-email', function() {

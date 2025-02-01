@@ -79,11 +79,23 @@
             </ul>
         @endif
     </header>
+
     <main>
         <form class="search-form" id="search-form" action="/search" method="get" style="display: none;">
             @csrf
             <input class="search-input" type="text" name="searchText" placeholder="何をお探しですか？">
         </form>
+
+        <script>
+            document.querySelector('.search-link').addEventListener('click', function() {
+                var searchForm = document.getElementById('search-form');
+                if (searchForm.style.display === 'none' || searchForm.style.display === '') {
+                    searchForm.style.display = 'block';
+                } else {
+                    searchForm.style.display = 'none';
+                }
+            });
+        </script>
         @yield('main')
     </main>
 </body>

@@ -30,7 +30,6 @@ class MypageController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        $profile = $user->profile ?? null;
 
         return view('profile', compact('user'));
     }

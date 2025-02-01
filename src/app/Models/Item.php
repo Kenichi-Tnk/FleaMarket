@@ -25,7 +25,7 @@ class Item extends Model
 
     public function favoriteUsers()
     {
-        return $this->belongsToMany(User::class, 'favorites');
+        return $this->belongsToMany(User::class, 'favorites', 'item_id', 'user_id');
     }
 
     public function comments()

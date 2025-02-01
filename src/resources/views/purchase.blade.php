@@ -39,9 +39,8 @@
                     @csrf
                     <select name="payment" id="paymentSelect" required>
                         <option value="">選択してください</option>
-                        @foreach($user->userPayments as $payment)
-                            <option value="{{ $payment->id }}">{{ $payment->method }}</option>
-                        @endforeach
+                        <option value="カード支払い" {{ $paymentMethod === 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
+                        <option value="コンビニ支払い" {{ $paymentMethod === 'コンビニ支払い' ? 'selected' : '' }}>コンビニ支払い</option>
                     </select>
                     <button type="submit">変更する</button>
                 </form>
@@ -52,10 +51,10 @@
                 <h3 class="header-content__title">配送先</h3>
                 <a class="link-button" href="/purchase/address/{{ $item->id }}">変更する</a>
             </div>
-            <diV class="address-content">
-                @if($profile)
-                    <p class="address-content__text">〒{{ substr($profile->postcode, 0, 3) . '_' . substr($profile->postcode, 3) }}</p>
-                    <p class="address-content__text">{{ $profile->address }}<span>{{ $profile->building }}</span></p>
+            <div class="address-content">
+                @if($user->address)
+                    <p class="address-content__text">〒{{ substr($user->postcode, 0, 3) . '-' . substr($user->postcode, 3) }}</p>
+                    <p class="address-content__text">{{ $user->address }}<span>{{ $user->building }}</span></p>
                 @else
                     <p class="address-content__text">プロフィールが設定されていません</p>
                 @endif
@@ -78,7 +77,7 @@
                 <p class="confirm-content__text">{{ $paymentMethod ?? '' }}</p>
             </div>
         </div>
-        <input type="hidden" name="payment_id" value="{{ $paymentId }}">
+        <input type="hidden" name="payment_id" value="{{ $paymentId ?? '' }}">
         <button class="submit-button" type="submit" onclick="return confirm('購入しますか？')">購入する</button>
     </form>
 @endsection
@@ -87,7 +86,7 @@
     <script>
         $(document).ready(function() {
             $('#paymentSelect').on('click', function() {
-            $(this).toggleClass('open');
+                $(this).toggleClass('open');
             });
         });
     </script>

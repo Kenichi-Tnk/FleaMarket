@@ -25,4 +25,11 @@
     <button class="form-content__button" type="submit">ログインする</button>
     <a class="form-content__link" href="/register">会員登録はこちら</a>
 </form>
+
+@if (session('resent'))
+    <div class="alert alert->success mt-3" role="alert">
+        {{ __('A fresh verification link has been sent to your email address.') }}
+    </div>
+@endif
+
 @endsection

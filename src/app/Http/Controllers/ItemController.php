@@ -29,7 +29,7 @@ class ItemController extends Controller
 
         return view('item', [
             'item' => $item,
-            'favoritesCount' => $item->favoriteUsers->count(),
+            'favoritesCount' => $item->favoriteUsers()->count(),
             'commentsCount' => $item->comments->count(),
             'condition' => $item->condition->condition,
             'link' => "/item/comment/{$item_id}",
@@ -41,15 +41,15 @@ class ItemController extends Controller
     public function comment($item_id)
     {
         $item = $this->loadItemWithRelations($item_id);
-        $userFavorited = $this->checkUserFavorited($item_id);
+        $userFavorited = $this->checkUserFavorited($item);
         $comments = $item->comments;
 
         $comments = $comments->map(function ($comment) {
             return [
                 'comment' => $comment->comment,
-                'UserId' => $comment->user_id,
+                'userId' => $comment->user->id,
                 'userName' => $comment->user->name,
-                'useIcon' => $comment->user->img_url ? asset($comment->user->img_url) : asset('storage/img/default_icon.svg'),
+                'userIcon' => $comment->user->img_url,
             ];
         });
 
@@ -65,14 +65,14 @@ class ItemController extends Controller
         return view('comment', $data);
     }
 
-    public function store(CommentRequest $request)
+    public function store(CommentRequest $request, $item_id)
     {
-        $user_id = Auth::user()->id;
+        $user_id = Auth::id();
         $commentText = $request->input('comment');
 
         $comment = new Comment();
-        $comment->user_id = Auth::id;
-        $comment->item = $item_id;
+        $comment->user_id = $user_id;
+        $comment->item_id = $item_id;
         $comment->comment = $commentText;
         $comment->save();
 

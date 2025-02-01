@@ -16,22 +16,28 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => '管理者',
-            'email' => 'admin@admin.com',
+            'name' => 'ユーザー1',
+            'email' => 'test@example.com',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
-            'img_url' => 'storage/img/icons/default_icon.svg',
+            'img_url' => 'img/icons/default_icon.svg',
+            'postcode' => '1234567',
+            'address' => '東京都渋谷区渋谷1-1-1',
+            'building' => '渋谷ビル101',
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         User::create([
-            'name' => 'ユーザー名',
+            'name' => 'ユーザー2',
             'email' => 'test@test.com',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
-            'img_url' => 'storage/img/icons/default_icon.svg',
+            'img_url' => 'img/icons/default_icon.svg',
+            'postcode' => '123-4567',
+            'address' => '東京都新宿区新宿1-1-1-1',
+            'building' => '新宿ビル101',
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),
