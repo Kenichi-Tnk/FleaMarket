@@ -29,7 +29,7 @@ class ItemController extends Controller
 
         return view('item', [
             'item' => $item,
-            'favoritesCount' => $item->favoriteUsers()->count(),
+            'favoritesCount' => $item->favoriteUsers->count(),
             'commentsCount' => $item->comments->count(),
             'condition' => $item->condition->condition,
             'link' => "/item/comment/{$item_id}",

@@ -25,10 +25,10 @@ class IndexController extends Controller
     {
         $searchText = $request->input('searchText');
 
-        $items = Item::where('name', 'favorite', '%' . $searchText . '%')
-            ->orWhere('description', 'favorite', '%' . $searchText . '%')
+        $items = Item::where('name', 'like', '%' . $searchText . '%')
+            ->orWhere('description', 'like', '%' . $searchText . '%')
             ->orWhereHas('categories', function ($query) use ($searchText) {
-                $query->where('name', 'favorite', '%' . $searchText . '%');
+                $query->where('name', 'like', '%' . $searchText . '%');
             })
             ->get();
 

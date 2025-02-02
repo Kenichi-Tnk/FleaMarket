@@ -13,7 +13,7 @@
             @forelse ($items as $item)
                 <div class="tab-content__content">
                     <a class="tab-content__content-link" href="/item/{{ $item->id }}">
-                        <img class="tab-content__content-image" src="{{ $item->img_url }}">
+                        <img class="tab-content__content-image" src="{{ asset('storage/' .$item->img_url) }}">
                     </a>
                 </div>
                 @empty

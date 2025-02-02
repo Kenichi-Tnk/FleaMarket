@@ -59,3 +59,19 @@
         @yield('content')
     </div>
 @endsection
+
+@section('scripts')
+<script>
+    function toggleCommentSection() {
+        const commentSection = document.getElementById('comment-section');
+        const commentIcon = document.getElementById('comment-icon');
+        if (commentSection.style.display === 'none') {
+            commentSection.style.display = 'block';
+            commentIcon.src = '{{ asset('storage/img/icons/comment_red.svg') }}';
+        } else {
+            commentSection.style.display = 'none';
+            commentIcon.src = '{{ asset('storage/img/icons/comment.svg') }}';
+        }
+    }
+</script>
+@endsection
