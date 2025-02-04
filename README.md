@@ -13,12 +13,19 @@ Laravel環境構築
 ・php artisan db:seed
 
 
-　マイグレーション、シーディング
-## 使用技術
-Laravel8.83.8
-PHP8.2.11
-MYSQL8.0.26
-nginx1.21.1
+マイグレーション、シーディング
+・php artisan migrate --seed
+
+エラーが発生の場合
+・php artisan migrate:fresh --seed
+
+storage内ファイル使用する為、シンボリックを作成します。
+・php artisan storage:link
+## 使用技術（実行環境）
+Laravel: 8.83.8
+PHP: 7.4.9
+MYSQL: 8.0.26
+nginx: 1.21.1
 
 ## ER図
 
