@@ -17,7 +17,7 @@
     @endif
 
     <h2 class="main-title">商品の出品</h2>
-    <form class="form-content" action="{{ isset($item) ? route('items.update', $item->id) : route('items.store') }}" method="post" enctype="multipart/form-data">
+    <form class="form-content" action="{{ isset($item) ? url('sell/' . $item->id) : url('sell') }}" method="post" enctype="multipart/form-data">
         @csrf
         @if(isset($item))
             @method('PUT')
@@ -25,7 +25,7 @@
         <span class="form-content__label">商品の画像
             @if($item)
                 <a class="image-link" href="{{ $item->img_url }}">
-                    <img class="preview-image" id="preview-image" src="{{ $item->img_url }}">
+                    <img class="preview-image" id="preview-image" src="{{ asset('storage/' . $item->img_url) }}">
                 </a>
             @else
                 <img class="preview-image" id="preview-image" style="display: none">

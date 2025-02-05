@@ -52,7 +52,7 @@ class SellController extends Controller
         if ($request->has('category_ids')) {
             $categoryIds = $request->input('category_ids');
             foreach ($categoryIds as $categoryId) {
-                \DB::table('category_items')->insert([
+                \DB::table('category_item')->insert([
                     'item_id' => $newItem->id,
                     'category_id' => $categoryId,
                     'created_at' => now(),
@@ -82,11 +82,11 @@ class SellController extends Controller
         $item = Item::find($item_id);
         $item->update($form);
 
-        \DB::table('category_items')->where('item_id', $item_id)->delete();
+        \DB::table('category_item')->where('item_id', $item_id)->delete();
         if ($request->has('category_ids')) {
             $categoryIds = $request->input('category_ids');
             foreach ($categoryIds as $categoryId) {
-                \DB::table('category_items')->insert([
+                \DB::table('category_item')->insert([
                     'item_id' => $item->id,
                     'category_id' => $categoryId,
                     'created_at' => now(),

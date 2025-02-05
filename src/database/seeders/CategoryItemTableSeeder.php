@@ -14,7 +14,7 @@ class CategoryItemTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('category_item')->insert([
+        $categoryItems = [
             //商品１に「家電」を関連づける
             ['item_id' => 1, 'category_id' => 2],
             //商品２に「ファッション、メンズ、アクセサリー」を関連づける
@@ -41,7 +41,16 @@ class CategoryItemTableSeeder extends Seeder
             //商品１０に「レディース、コスメ」を関連づける
             ['item_id' => 10, 'category_id' => 4],
             ['item_id' => 10, 'category_id' => 6],
-            //必要に応じて追加
-        ]);
+        ];
+
+        foreach ($categoryItems as $categoryItem) {
+            DB::table('category_item')->updateOrInsert(
+                [
+                    'item_id' => $categoryItem['item_id'],
+                    'category_id' => $categoryItem['category_id'],
+                ],
+                ['updated_at' => now(), 'created_at' => now()]
+            );
+        }
     }
 }

@@ -15,9 +15,10 @@ class CategoryItemFactory extends Factory
      */
     public function definition()
     {
+        $category = Category::inRandomOrder()->first() ?? Category::factory()->create();
         return [
             'item_id' => Item::factory(),
-            'category_id' => Category::inRandomOrder()->first()->id,
+            'category_id' => $category->id,
             'created_at' => now(),
             'updated_at' => now(),
         ];

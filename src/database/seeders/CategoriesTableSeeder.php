@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
@@ -15,28 +15,27 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-            'ファッション',
-            '家電',
-            'インテリア',
-            'レディース',
-            'メンズ',
-            'コスメ',
-            '本',
-            'ゲーム',
-            'スポーツ',
-            'キッチン',
-            'ハンドメイド',
-            'アクセサリー',
-            'おもちゃ',
-            'ベビー・キッズ'
+            ['content' => 'ファッション'],
+            ['content' => '家電'],
+            ['content' => 'インテリア'],
+            ['content' => 'レディース'],
+            ['content' => 'メンズ'],
+            ['content' => 'コスメ'],
+            ['content' => '本'],
+            ['content' => 'ゲーム'],
+            ['content' => 'スポーツ'],
+            ['content' => 'キッチン'],
+            ['content' => 'ハンドメイド'],
+            ['content' => 'アクセサリー'],
+            ['content' => 'おもちゃ'],
+            ['content' => 'ベビー・キッズ'],
         ];
 
         foreach ($categories as $category) {
-            Category::create([
-                'content' => $category,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            DB::table('categories')->updateOrInsert(
+                ['content' => $category['content']],
+                ['created_at' => now(), 'updated_at' => now()]
+            );
         }
     }
 }

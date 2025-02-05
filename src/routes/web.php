@@ -71,8 +71,7 @@ Route::middleware('auth', 'verified')->group(function() {
     Route::get('/sell', [SellController::class, 'index']);
     Route::get('sell/{item_id}', [SellController::class, 'index']);
     Route::post('/sell', [SellController::class, 'create']);
-    Route::post('/sell/{item_id}', [SellController::class, 'edit']);
-    Route::resource('items', ItemController::class);
+    Route::put('/sell/{item_id}', [SellController::class, 'edit']);
 
     // 購入関係
     Route::prefix('purchase')->group(function() {
