@@ -26,10 +26,12 @@ class RegisterController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
+        //ユーザーに登録後に認証メールを送信
         event(new Registered($user));
 
+        //ユーザーをログインさせる
         Auth::login($user);
 
-        return redirect()->intended('/mypage/profile');
+        return redirect()->route('verification.notice');
     }
 }

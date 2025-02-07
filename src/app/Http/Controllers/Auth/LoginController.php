@@ -20,6 +20,7 @@ class LoginController extends Controller
 
         $user = \App\Models\User::where('email', $credentials['email'])->first();
 
+        //メールアドレスが認証されているか確認
         if ($user && !$user->hasVerifiedEmail()) {
             throw ValidationException::withMessages([
                 'email' => 'メールアドレスが認証完了していません。 認証メールを確認してください。'

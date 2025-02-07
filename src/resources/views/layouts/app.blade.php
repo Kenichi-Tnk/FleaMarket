@@ -13,7 +13,7 @@
 <body>
     <header>
         <a class="header__link" href="/">
-            <img class="header__logo" src="{{ asset('/storage/img/icons/logo.svg') }}">
+            <img class="header__logo" src="{{ asset('/storage/img/icons/logo.svg') }}" alt="COACHTECH">
         </a>
         @if(!request()->is('register', 'login', 'purchase/address/*', 'sell'))
             <form class="header__search" action="/search" method="get">
@@ -97,6 +97,7 @@
             });
         </script>
         @yield('main')
+        @yield('content')
     </main>
 </body>
 </html>

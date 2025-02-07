@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SellController;
@@ -14,7 +16,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Mail\TestMail;
 
 
 /*
@@ -37,14 +38,20 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('search', [IndexController::class, 'search']);
 Route::get('/item/{item_id}', [ItemController::class, 'index'])->name('item.show');
 
-    //ログイン・ログアウト
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    //ログイン・ユーザー登録
+Route::middleware(['guest'])->group(function () {
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login']);
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::post('register', [RegisterController::class, 'register']);
+});
 
-    //ユーザー登録
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
+    //ログアウト
+Route::middleware(['auth'])->group(function () {
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+});
+
+
 
     //認証必要ルート
 Route::middleware('auth', 'verified')->group(function() {
@@ -83,23 +90,19 @@ Route::middleware('auth', 'verified')->group(function() {
         Route::get('/success/{item_id}', [PurchaseController::class, 'success'])->name('purchase.success');
         Route::get('/cancel/{item_id}', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
     });
+});
 
     // メール認証関係ルート
-    Route::get('/email/verify', [EmailVerificationPromptController::class, '__invoke'])
-        ->middleware('auth')
-        ->name('verification.notice');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
-    Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-        ->middleware(['auth', 'signed'])
-        ->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
-    Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-        ->middleware(['auth', 'throttle:6,1'])
-        ->name('verification.send');
-});
-
-// テストメール送信
-Route::get('/test-email', function() {
-    Mail::to('test-recipient@gmail.com')->send(new TestMail());
-    return 'Test email sent';
-});
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
