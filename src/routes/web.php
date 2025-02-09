@@ -51,15 +51,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
 
-
-
     //認証必要ルート
 Route::middleware('auth', 'verified')->group(function() {
 
     // マイページ関係
     Route::prefix('mypage')->group(function() {
         Route::get('/', [MypageController::class, 'index'])->name('mypage');
-        Route::get('/profile', [MypageController::class, 'profile'])->name('profile');
+        Route::get('/profile', [MypageController::class, 'profile'])->name('profile.edit');
         Route::post('/profile/update', [MypageController::class, 'update'])->name('profile.update');
     });
 
@@ -93,16 +91,14 @@ Route::middleware('auth', 'verified')->group(function() {
 });
 
     // メール認証関係ルート
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+Route::get('/email/verify', [EmailVerificationPromptController::class, '__invoke'])
+    ->middleware('auth')
+    ->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['auth', 'signed'])
+    ->name('verification.verify');
 
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    ->middleware(['auth', 'throttle:6,1'])
+    ->name('verification.send');

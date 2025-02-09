@@ -32,6 +32,6 @@ class RegisterController extends Controller
         //ユーザーをログインさせる
         Auth::login($user);
 
-        return redirect()->route('verification.notice');
+        return redirect()->route('profile.edit');
     }
 }

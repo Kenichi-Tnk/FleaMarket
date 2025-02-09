@@ -19,7 +19,7 @@ class MypageController extends Controller
 
         $data = [
             'user' => $user,
-            'img_url' => asset($img_url),
+            'img_url' => $img_url,
             'sellItems' => $sellItems,
             'soldItems' => $soldItems,
         ];
@@ -30,8 +30,7 @@ class MypageController extends Controller
     public function profile()
     {
         $user = Auth::user();
-
-        return view('profile', compact('user'));
+        return view('profile.edit', compact('user'));
     }
 
     public function update(ProfileRequest $request)
@@ -52,9 +51,9 @@ class MypageController extends Controller
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $filename = time() . '_' . $file->getClickOriginalName();
-            $path = $file->storageAs('public/img/icons', $filename);
-            $user->img_url = 'img/icons' . $filename;
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/img/icons', $filename);
+            $user->img_url = 'img/icons/' . $filename;
         }
 
         $user->save();
