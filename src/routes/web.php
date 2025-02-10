@@ -64,7 +64,6 @@ Route::middleware('auth', 'verified')->group(function() {
 
     // 商品関係
     Route::prefix('item')->group(function() {
-        Route::get('/comment/{item_id}', [ItemController::class, 'comment']);
         Route::post('/comment/store/{item_id}', [ItemController::class, 'store']);
         Route::post('/favorite/{item_id}', [ItemController::class, 'favorite']);
         Route::delete('/unfavorite/{item_id}', [ItemController::class, 'unfavorite']);

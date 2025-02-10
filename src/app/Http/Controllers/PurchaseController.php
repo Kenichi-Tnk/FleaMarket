@@ -8,8 +8,6 @@ use App\Models\Payment;
 use App\Models\SoldItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Stripe\Stripe;
-use Stripe\Checkout\Session as StripeSession;
 
 class PurchaseController extends Controller
 {
@@ -70,34 +68,9 @@ class PurchaseController extends Controller
         $item = Item::find($item_id);
         $paymentMethod = session('paymentMethod', 'カード支払い');
 
-        if ($paymentMethod === 'カード支払い') {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+        $this->completePurchase($item_id, $user->id);
 
-            $session = StripeSession::create([
-                'payment_method_types' => ['card'],
-                'line_items' => [[
-                    'price_data' => [
-                        'currency' => 'jpy',
-                        'product_data' => [
-                            'name' => $item->name,
-                        ],
-                        'unit_amount' => $item->price * 100,
-                    ],
-                    'quantity' => 1,
-                ]],
-                'mode' => 'payment',
-                'success_url' => route('purchase.success', ['item_id' => $item_id]),
-                'cancel_url' => route('purchase.cancel', ['item_id' => $item_id]),
-            ]);
-
-            return redirect($session->url);
-        } else {
-            // コンビニ支払いの処理を追加
-            // ここでは簡略化のため、直接購入完了とします
-            $this->completePurchase($item_id, $user->id);
-
-            return redirect()->route('purchase.success', ['item_id' => $item_id]);
-        }
+        return redirect()->route('purchase.success', ['item_id' => $item_id]);
     }
 
     public function success($item_id)

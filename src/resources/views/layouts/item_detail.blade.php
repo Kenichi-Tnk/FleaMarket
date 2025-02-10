@@ -47,31 +47,13 @@
                     </form>
                 @endif
                 <div class="comment-content">
-                    <button class="item-icon__button" onclick="location.href='{{ $link }}'">
                         <img class="item-icon__image"
                         src="{{ request()->is('item/comment/*') ? asset('storage/img/icons/comment_red.svg')
                         : asset('storage/img/icons/comment.svg') }}" alt="コメント">
                         <p class="comments-count">{{ $commentsCount }}</p>
-                    </button>
                 </div>
             </div>
         </div>
         @yield('content')
     </div>
-@endsection
-
-@section('scripts')
-<script>
-    function toggleCommentSection() {
-        const commentSection = document.getElementById('comment-section');
-        const commentIcon = document.getElementById('comment-icon');
-        if (commentSection.style.display === 'none') {
-            commentSection.style.display = 'block';
-            commentIcon.src = '{{ asset('storage/img/icons/comment_red.svg') }}';
-        } else {
-            commentSection.style.display = 'none';
-            commentIcon.src = '{{ asset('storage/img/icons/comment.svg') }}';
-        }
-    }
-</script>
 @endsection

@@ -12,6 +12,9 @@
         <div class="tab-content__group">
             @foreach($items as $item)
                 <div class="tab-content__content">
+                    @if ($item->soldToUsers()->exists())
+                        <div class="sold-out__mark">SOLD OUT</div>
+                    @endif
                     <a class="tab-content__content-link" href="/item/{{ $item->id }}">
                         <img class="tab-content__content-image" src="{{ 'storage/' . $item->img_url }}">
                     </a>

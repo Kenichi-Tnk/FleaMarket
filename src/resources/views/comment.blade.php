@@ -1,6 +1,6 @@
 @extends('layouts.item_detail')
 
-@section('content')
+@section('comment')
     <div class="comment-group">
         @foreach ($comments as $comment)
             @if (Auth::id() === $comment['userId'])
@@ -31,11 +31,21 @@
         @endforeach
     </div>
 
-    <form class="form-group" action="/item/comment/store/{{ $item->id }}" method="post">
+    <form class="form-group" action="/item/comment/store/{{ $item->id }}" method="post" onsubmit="return hideCommentSection()">
         @csrf
         <label class="form-group__label">商品へのコメント
             <textarea class="form-group__textarea" name="comment" rows="5" required></textarea>
         </label>
         <button class="submit-button" type="submit" onclick="return confirm('コメントを送信しますか？')">コメントを送信する</button>
     </form>
+@endsection
+
+@section('scripts')
+    <script>
+        function hideCommentSection() {
+            const commentSection = document.getElementById('comment-section');
+            commentSection.style.display = 'none';
+            return true;
+        }
+    </script>
 @endsection

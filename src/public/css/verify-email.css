@@ -1,0 +1,31 @@
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.card-body {
+    font-size: 1.6rem;
+}
+
+.btn-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+.alert-success {
+    margin-top: 20px;
+}

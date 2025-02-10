@@ -15,6 +15,8 @@ class EmailVerificationNotificationController extends Controller
             return redirect()->intended('/');
         }
 
+        Log::info('Sending verification email to: ' . $request->user()->email);
+
         $request->user()->sendEmailVerificationNotification();
 
         Log::info('Verification email sent to: ' . $request->user()->email);

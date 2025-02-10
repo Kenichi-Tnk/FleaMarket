@@ -87,17 +87,22 @@
         </form>
 
         <script>
-            document.querySelector('.search-link').addEventListener('click', function() {
-                var searchForm = document.getElementById('search-form');
-                if (searchForm.style.display === 'none' || searchForm.style.display === '') {
-                    searchForm.style.display = 'block';
-                } else {
-                    searchForm.style.display = 'none';
+            document.addEventListener('DOMContentLoaded', function() {
+                var searchLink = document.querySelector('.search-link');
+                if (searchLink) {
+                    searchLink.addEventListener('click', function() {
+                        var searchForm = document.getElementById('search-form');
+                        if (searchForm.style.display === 'none' || searchForm.style.display === '') {
+                            searchForm.style.display = 'block';
+                        } else {
+                            searchForm.style.display = 'none';
+                        }
+                    });
                 }
             });
         </script>
         @yield('main')
-        @yield('content')
+        @yield('scripts')
     </main>
 </body>
 </html>

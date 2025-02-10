@@ -113,6 +113,11 @@
         }
 
         document.addEventListener('DOMContentLoaded', function(){
+            const imageInput = document.getElementById('image');
+            if (imageInput) {
+                imageInput.addEventListener('change', previewFile);
+            }
+
             @if(!empty($item))
                 const selectedCategories = @json($item->categories->pluck('id')->toArray() ?? []);
                 document.querySelectorAll('.category-button input[type="checkbox"]').forEach(checkbox => {
@@ -122,17 +127,15 @@
                 }
             });
             @endif
-        });
-    </script>
 
-    <script>
-        document.querySelectorAll('.category-button input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function(){
-                if (this.checked) {
-                    this.closest('.category-button').classList.add('selected');
-                } else {
-                    this.closest('.category-button').classList.remove('selected');
-                }
+            document.querySelectorAll('.category-button input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function(){
+                    if (this.checked) {
+                        this.closest('.category-button').classList.add('selected');
+                    } else {
+                        this.closest('.category-button').classList.remove('selected');
+                    }
+                });
             });
         });
     </script>

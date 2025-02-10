@@ -27,24 +27,7 @@ class ItemController extends Controller
         $item = $this->loadItemWithRelations($item_id);
         $category = $item->categories->first();
 
-        return view('item', [
-            'item' => $item,
-            'favoritesCount' => $item->favoriteUsers->count(),
-            'commentsCount' => $item->comments->count(),
-            'condition' => $item->condition->condition,
-            'link' => "/item/comment/{$item_id}",
-            'userFavorited' => $this->checkUserFavorited($item),
-            'userItem' => $item->user_id == Auth::id(),
-        ]);
-    }
-
-    public function comment($item_id)
-    {
-        $item = $this->loadItemWithRelations($item_id);
-        $userFavorited = $this->checkUserFavorited($item);
-        $comments = $item->comments;
-
-        $comments = $comments->map(function ($comment) {
+        $comments = $item->comments->map(function ($comment) {
             return [
                 'comment' => $comment->comment,
                 'userId' => $comment->user->id,
@@ -53,16 +36,16 @@ class ItemController extends Controller
             ];
         });
 
-        $data = [
+        return view('item', [
             'item' => $item,
             'favoritesCount' => $item->favoriteUsers->count(),
             'commentsCount' => $item->comments->count(),
             'comments' => $comments,
+            'condition' => $item->condition->condition,
             'link' => "/item/comment/{$item_id}",
-            'userFavorited' => $userFavorited,
-        ];
-
-        return view('comment', $data);
+            'userFavorited' => $this->checkUserFavorited($item),
+            'userItem' => $item->user_id == Auth::id(),
+        ]);
     }
 
     public function store(CommentRequest $request, $item_id)
