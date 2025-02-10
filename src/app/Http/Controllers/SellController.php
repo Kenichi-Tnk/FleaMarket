@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SellRequest;
+use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\CategoryItem;
 use App\Models\Condition;
@@ -37,9 +37,9 @@ class SellController extends Controller
         return view('sell', $data);
     }
 
-    public function create(SellRequest $request)
+    public function create(Request $request)
     {
-            $form = $request->all();
+        $form = $request->all();
         Log::info('Form Data:', $form);
 
         if ($request->hasFile('img_url')) {
@@ -75,10 +75,10 @@ class SellController extends Controller
             return redirect()->back()->with('error', '出品に失敗しました');
         }
 
-        return redirect()->back()->with('success', '出品しました');
+        return redirect()->route('mypage')->with('success', '出品しました');
     }
 
-    public function edit(SellRequest $request, $item_id)
+    public function edit(Request $request, $item_id)
     {
         $form = $request->all();
         unset($form['_token']);
@@ -113,7 +113,7 @@ class SellController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', '変更しました');
+        return redirect()->route('mypage')->with('success', '変更しました');
     }
 
     public function showForm()

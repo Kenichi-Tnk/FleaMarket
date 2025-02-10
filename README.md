@@ -3,6 +3,17 @@
 Dockerのビルド</br>
 ・git clone git@github.com:</br>
 ・docker-compose up -d --build</br>
+  Macをユーザーの方は</br>
+  '''bash
+  docker-compose.ymlに 
+  mysql:
+    platform: linux/amd64
+
+ phpmyadmin:
+    platform: linux/amd64
+    を追加してください。
+  '''
+
 
 Laravel環境構築</br>
 ・docker-compose exec php bash</br>
@@ -31,11 +42,13 @@ nginx: 1.21.1</br>
 ログイン機能<br>
 会員登録機能<br>
 メール認証機能<br>
+商品出品機能</br>
+商品検索機能
 
 ## ER図
 
 ## URL
-開発環境: http://localhost/</br>
+開発環境: http://localhost/</>
 ユーザー登録: http://localhost/register</br>
 ログイン画面: http://localhost/login<br>
 phpmyadmin: http://localhost:8080/<br>

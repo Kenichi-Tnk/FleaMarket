@@ -6,43 +6,23 @@
 @endsection
 
 @section('main')
-@section('main')
 <div class="payment-container">
-    <div class="payment-form">
-        <div class="form-group">
-            <label for="cardNumber">カード番号</label>
-            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
-        </div>
-        <div class="form-group">
-            <label for="expiryDate">有効期限</label>
-            <div class="expiry-date">
-                <select class="select-limit" name="month">
-                    <option hidden>月</option>
-                    @for ($i = 1; $i <= 12; $i++)
-                        <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
-                </select>
-                <select class="select-limit" name="year">
-                    <option hidden>年</option>
-                    @for ($i = 2023; $i < 2043; $i++)
-                        <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
-                </select>
+    <form action="{{ route('purchase.selectPayment', ['item_id' => $item_id]) }}" method="post">
+        @csrf
+        @foreach($payments as $payment)
+            <div class="radio-list">
+                <label class="payment-label">
+                    <input class="payment-radio" type="radio" name="payment" value="{{ $payment->id }}">{{ $payment->method }}
+                </label>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="cardName">カードに記載された名前</label>
-            <input type="text" id="cardName" name="cardName" placeholder="TARO YAMADA">
-        </div>
-        <button type="button" class="btn-add-card">追加</button>
-    </div>
+        @endforeach
+        <button type="submit" class="btn btn-primary">支払い方法を選択</button>
+    </form>
 
-    @foreach($payments as $payment)
-        <div class="radio-list">
-            <label class="payment-label">
-                <input class="payment-radio" type="radio" name="payment" value="{{ $payment->id }}">{{ $payment->method }}
-            </label>
-        </div>
-    @endforeach
+    <form action="{{ route('purchase.decide', ['item_id' => $item_id]) }}" method="post">
+        @csrf
+        <input type="hidden" name="payment_id" value="{{ session('paymentId') }}">
+        <button type="submit" class="btn btn-primary">購入する</button>
+    </form>
 </div>
 @endsection

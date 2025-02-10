@@ -9,7 +9,6 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -64,6 +63,7 @@ Route::middleware('auth', 'verified')->group(function() {
 
     // 商品関係
     Route::prefix('item')->group(function() {
+        Route::get('/comment/{item_id}', [ItemController::class, 'comment']);
         Route::post('/comment/store/{item_id}', [ItemController::class, 'store']);
         Route::post('/favorite/{item_id}', [ItemController::class, 'favorite']);
         Route::delete('/unfavorite/{item_id}', [ItemController::class, 'unfavorite']);

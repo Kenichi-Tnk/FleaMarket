@@ -9,15 +9,6 @@
         <div class="message-success" id="message">
             {{ session('success') }}
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const message = document.getElementById('message');
-                message.style.display = 'block';
-                setTimeout(function() {
-                    message.style.display = 'none';
-                }, 4000);
-            });
-        </script>
     @endif
 
     <div class="section-container">
@@ -26,7 +17,7 @@
                 <img class="image-content__image" src="{{ asset('storage/' . $item->img_url) }}" alt="商品画像">
             </div>
             <div class="item-content">
-                <h2 class="item-content__title">{{ $item->name }}</h2>
+                <h1 class="item-content__title">{{ $item->name }}</h1>
                 <p class="item-content__price">￥{{ number_format($item->price) }}</p>
             </div>
         </div>
@@ -80,14 +71,4 @@
         <input type="hidden" name="payment_id" value="{{ $paymentId ?? '' }}">
         <button class="submit-button" type="submit" onclick="return confirm('購入しますか？')">購入する</button>
     </form>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#paymentSelect').on('click', function() {
-                $(this).toggleClass('open');
-            });
-        });
-    </script>
 @endsection

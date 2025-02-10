@@ -38,6 +38,11 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'sold_items');
     }
 
+    public function itemPayments()
+    {
+        return $this->hasMany(Payment::class, 'sold_items');
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_item');
