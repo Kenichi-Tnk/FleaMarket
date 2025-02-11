@@ -6,7 +6,7 @@
 
 会員登録、ログイン後出品や購入（仮）、商品のコメントができます。
 
-![Alt text](img/Top-page.png)
+![alt text](https://file%2B.vscode-resource.vscode-cdn.net/Users/tanakakenichi/coachtech/laravel/FleaMarket/img/TopPaage.png?version%3D1739287996160)
 
 ## git URL
 
@@ -71,3 +71,6 @@ nginx: 1.21.1</br>
 ユーザー登録: http://localhost/register</br>
 ログイン画面: http://localhost/login<br>
 phpmyadmin: http://localhost:8080/<br>
+
+
+[imageLink]: img/Top-page.png
