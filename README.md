@@ -6,7 +6,7 @@
 
 会員登録、ログイン後出品や購入（仮）、商品のコメントができます。
 
-![Alt text](README-img/Toppage.png)
+![Alt text](img/Top-page.png)
 
 ## git URL
 
