@@ -1,10 +1,29 @@
 # FleaMarket
+
+## フリマアプリ
+
+学習でフリマアプリ開発に挑戦しました。
+
+会員登録、ログイン後出品や購入（仮）、商品のコメントができます。
+
+![Alt text](README-img/Toppage.png)
+
+## git URL
+
+HTTPS
+
+https://github.com/Kenichi-Tnk/FleaMarket.git
+
+SSH
+
+git@github.com:Kenichi-Tnk/FleaMarket.git
+
+
 ## 環境構築
+
 Dockerのビルド</br>
-・git clone git@github.com:</br>
 ・docker-compose up -d --build</br>
   Macをユーザーの方は</br>
-  '''bash
   docker-compose.ymlに 
   mysql:
     platform: linux/amd64
