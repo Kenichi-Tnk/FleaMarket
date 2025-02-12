@@ -51,6 +51,25 @@ Laravel環境構築</br>
 
 storage内ファイル使用する為、シンボリックを作成します。</br>
 ・php artisan storage:link</br>
+
+.env
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=laravel_user
+DB_PASSWORD=laravel_pass
+
+AIL_MAILER=smtp
+MAIL_HOST=sandbox.smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=*********eb
+MAIL_PASSWORD=************e3
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="from@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
 ## 使用技術（実行環境）
 Laravel: 8.83.8
 
@@ -70,6 +89,32 @@ nginx: 1.21.1
 商品出品機能
 
 商品検索機能
+
+## メール認証機能
+mailtrapを使用
+
+使用するにはmailtrapのサイトにてアカウント登録が必要です。
+
+登録後Email Testing->inboxをクリックしてAdd InboxをクリックしてMy Inboxを作成
+
+# Looking to send emails in production? Check out our Email API/SMTP product!
+MAIL_MAILER=smtp
+
+MAIL_HOST=sandbox.smtp.mailtrap.io
+
+MAIL_PORT=2525
+
+MAIL_USERNAME=*******f1eb
+
+MAIL_PASSWORD=*******4e3
+
+MAIL_ENCRYPTION=tls
+
+と表示があるので
+
+.envに入れてください。
+
+会員登録後mailtrapにメールが届けば成功です。
 
 ## テーブル構成
 
