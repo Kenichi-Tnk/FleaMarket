@@ -78,14 +78,13 @@ Route::middleware('auth', 'verified')->group(function() {
     Route::put('/sell/{item_id}', [SellController::class, 'edit']);
 
     // 購入関係
-    Route::prefix('purchase')->group(function() {
-        Route::get('/{item_id}', [PurchaseController::class, 'index'])->name('purchase.index');
-        Route::get('/address/{item_id}', [PurchaseController::class, 'address'])->name('purchase.address');
-        Route::post('/address/update/{item_id}', [PurchaseController::class, 'updateAddress'])->name('purchase.updateAddress');
+    Route::prefix('purchase')->group(function () {
+        Route::get('/{item_id}', [PurchaseController::class, 'index']);
+        Route::get('/address/{item_id}', [PurchaseController::class, 'address']);
+        Route::post('/address/update/{item_id}', [PurchaseController::class, 'updateAddress']);
+        Route::get('/payment/{item_id}', [PurchaseController::class, 'payment']);
         Route::post('/payment/select/{item_id}', [PurchaseController::class, 'selectPayment'])->name('purchase.selectPayment');
-        Route::post('/decide/{item_id}', [PurchaseController::class, 'decidePurchase'])->name('purchase.decide');
-        Route::get('/success/{item_id}', [PurchaseController::class, 'success'])->name('purchase.success');
-        Route::get('/cancel/{item_id}', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
+        Route::post('/decide/{item_id}', [PurchaseController::class, 'decidePurchase']);
     });
 });
 

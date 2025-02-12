@@ -9,6 +9,12 @@
         <div class="message-success" id="message">
             {{ session('success') }}
         </div>
+        <script src="https:ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#message").fadeIn(1000).delay(3000).fadeOut(1000);
+            });
+        </script>
     @endif
 
     <div class="section-container">
@@ -25,17 +31,18 @@
             <div class="header-content">
                 <h3 class="header-content__title">支払い方法</h3>
             </div>
-            <div class="payment-content">
-                <form id="paymentForm" action="/purchase/payment/select/{{ $item->id }}" method="post">
+            <form action="{{route('purchase.selectPayment', ['item_id' => $item->id]) }}" method="post">
                     @csrf
-                    <select name="payment" id="paymentSelect" required>
-                        <option value="">選択してください</option>
-                        <option value="カード支払い" {{ $paymentMethod === 'カード支払い' ? 'selected' : '' }}>カード支払い</option>
-                        <option value="コンビニ支払い" {{ $paymentMethod === 'コンビニ支払い' ? 'selected' : '' }}>コンビニ支払い</option>
+                    <select name="payment" class="payment-select">
+                        @foreach($payments as $payment)
+                            <option value="{{ $payment->id }}" {{ session('paymentId') == $payment->id ? 'selected' : '' }}>{{ $payment->method }}</option>
+                        @endforeach
                     </select>
-                    <button type="submit">変更する</button>
+                    <button class="link-button" type="submit">変更する</button>
                 </form>
-            </div>
+                @error('payment_id')
+                    <p class="payment-content__text payment-content__text-error">{{ $errors->first('payment_id') }}</p>
+                @enderror
         </div>
         <div class="address-group">
             <div class="header-content">
@@ -43,12 +50,8 @@
                 <a class="link-button" href="/purchase/address/{{ $item->id }}">変更する</a>
             </div>
             <div class="address-content">
-                @if($user->address)
                     <p class="address-content__text">〒{{ substr($user->postcode, 0, 3) . '-' . substr($user->postcode, 3) }}</p>
                     <p class="address-content__text">{{ $user->address }}<span>{{ $user->building }}</span></p>
-                @else
-                    <p class="address-content__text">プロフィールが設定されていません</p>
-                @endif
             </div>
         </div>
     </div>

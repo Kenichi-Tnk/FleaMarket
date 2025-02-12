@@ -6,7 +6,7 @@
 
 会員登録、ログイン後出品や購入（仮）、商品のコメントができます。
 
-![alt text](https://file%2B.vscode-resource.vscode-cdn.net/Users/tanakakenichi/coachtech/laravel/FleaMarket/img/TopPaage.png?version%3D1739287996160)
+<img width="1501" alt="Image" src="https://github.com/user-attachments/assets/e1c31e7e-2f68-4930-b020-e87a1e67030b" />
 
 ## git URL
 
@@ -52,19 +52,31 @@ Laravel環境構築</br>
 storage内ファイル使用する為、シンボリックを作成します。</br>
 ・php artisan storage:link</br>
 ## 使用技術（実行環境）
-Laravel: 8.83.8</br>
-PHP: 7.4.9</br>
-MYSQL: 8.0.26</br>
-nginx: 1.21.1</br>
+Laravel: 8.83.8
 
-##実装機能
-ログイン機能<br>
-会員登録機能<br>
-メール認証機能<br>
-商品出品機能</br>
+PHP: 7.4.9
+
+MYSQL: 8.0.26
+
+nginx: 1.21.1
+
+## 実装機能
+ログイン機能
+
+会員登録機能
+
+メール認証機能
+
+商品出品機能
+
 商品検索機能
 
+## テーブル構成
+
 ## ER図
+
+<img width="952" alt="ER 2025-02-12 5 01 52 3" src="https://github.com/user-attachments/assets/bce1e376-9b26-43e0-b046-13b4a264600e" />
+
 
 ## URL
 開発環境: http://localhost/</>
@@ -73,4 +85,5 @@ nginx: 1.21.1</br>
 phpmyadmin: http://localhost:8080/<br>
 
 
-[imageLink]: img/Top-page.png
+[imageLink]: img/TopPage.png
+[imageLink]: img/index.png
