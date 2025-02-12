@@ -5,7 +5,7 @@
 学習でフリマアプリ開発に挑戦しました。
 
 会員登録、ログイン後出品や購入（仮）、商品のコメントができます。
-
+<img width="1501" alt="Image" src="https://github.com/user-attachments/assets/920bcef9-78c5-4c33-9d86-6a661d63f36d" />
 
 
 ## git URL
