@@ -6,7 +6,7 @@
 
 会員登録、ログイン後出品や購入（仮）、商品のコメントができます。
 
-<img width="1501" alt="Image" src="https://github.com/user-attachments/assets/e1c31e7e-2f68-4930-b020-e87a1e67030b" />
+
 
 ## git URL
 
@@ -75,15 +75,14 @@ nginx: 1.21.1
 
 ## ER図
 
-<img width="952" alt="ER 2025-02-12 5 01 52 3" src="https://github.com/user-attachments/assets/bce1e376-9b26-43e0-b046-13b4a264600e" />
+
 
 
 ## URL
 開発環境: http://localhost/</>
-ユーザー登録: http://localhost/register</br>
-ログイン画面: http://localhost/login<br>
-phpmyadmin: http://localhost:8080/<br>
+ユーザー登録: http://localhost/register
 
+ログイン画面: http://localhost/login
 
-[imageLink]: img/Topage.png
-[imageLink]: img/index.png
+phpmyadmin: http://localhost:8080/
+
