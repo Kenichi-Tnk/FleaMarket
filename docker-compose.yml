@@ -18,7 +18,7 @@ services:
 
     mysql:
         image: mysql:8.0.26
-        platform: linux/amd64/v8
+        platform: linux/amd64
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: laravel_db
@@ -32,6 +32,7 @@ services:
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
+        platform: linux/amd64
         environment:
             - PMA_ARBITRARY=1
             - PMA_HOST=mysql
@@ -41,3 +42,11 @@ services:
             - mysql
         ports:
             - 8080:80
+
+    mailhog:
+        image: mailhog/mailhog
+        platform: linux/amd64
+        container_name: mailhog
+        ports:
+            - "1025:1025"
+            - "8025:8025"
