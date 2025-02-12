@@ -119,7 +119,7 @@ MAIL_ENCRYPTION=tls
 ## テーブル構成
 
 ## ER図
-
+<img width="952" alt="Image" src="https://github.com/user-attachments/assets/165b738f-89e8-48c2-984c-5269fb582ed1" />
 
 
 
