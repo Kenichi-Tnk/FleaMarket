@@ -21,9 +21,11 @@ git@github.com:Kenichi-Tnk/FleaMarket.git
 
 ## 環境構築
 
-Dockerのビルド</br>
-・docker-compose up -d --build</br>
-  Macをユーザーの方は</br>
+### Dockerのビルド
+・docker-compose up -d --build
+
+・Macをユーザーの方は
+  
   docker-compose.ymlに 
   mysql:
     platform: linux/amd64
@@ -31,43 +33,59 @@ Dockerのビルド</br>
  phpmyadmin:
     platform: linux/amd64
     を追加してください。
-  '''
+
+### Laravel環境構築
+
+・docker-compose exec php bash
+
+・composer -v
+
+・cp .env.example .env 環境変数を適宜変更
+
+・php artisan key:generate
+
+・php artisan migrate
+
+・php artisan db:seed
 
 
-Laravel環境構築</br>
-・docker-compose exec php bash</br>
-・composer install</br>
-・cp .env.example .env 環境変数を適宜変更</br>
-・php artisan key:generate</br>
-・php artisan migrate</br>
-・php artisan db:seed</br>
-
-
-マイグレーション、シーディング</br>
+### マイグレーション、シーディング
 ・php artisan migrate --seed</br>
 
-エラーが発生の場合</br>
+### エラーが発生の場合
 ・php artisan migrate:fresh --seed</br>
 
-storage内ファイル使用する為、シンボリックを作成します。</br>
+### storage内ファイル使用する為、シンボリックを作成します。
 ・php artisan storage:link</br>
 
 .env
 
 DB_CONNECTION=mysql
+
 DB_HOST=mysql
+
 DB_PORT=3306
+
 DB_DATABASE=laravel_db
+
 DB_USERNAME=laravel_user
+
 DB_PASSWORD=laravel_pass
 
 AIL_MAILER=smtp
+
 MAIL_HOST=sandbox.smtp.mailtrap.io
+
 MAIL_PORT=2525
+
 MAIL_USERNAME=*********eb
+
 MAIL_PASSWORD=************e3
+
 MAIL_ENCRYPTION=tls
+
 MAIL_FROM_ADDRESS="from@example.com"
+
 MAIL_FROM_NAME="${APP_NAME}"
 
 ## 使用技術（実行環境）
@@ -97,7 +115,6 @@ mailtrapを使用
 
 登録後Email Testing->inboxをクリックしてAdd InboxをクリックしてMy Inboxを作成
 
-# Looking to send emails in production? Check out our Email API/SMTP product!
 MAIL_MAILER=smtp
 
 MAIL_HOST=sandbox.smtp.mailtrap.io
@@ -121,7 +138,12 @@ MAIL_ENCRYPTION=tls
 ## ER図
 <img width="952" alt="Image" src="https://github.com/user-attachments/assets/165b738f-89e8-48c2-984c-5269fb582ed1" />
 
+## テストユーザー
+            メールアドレス       パスワード
 
+ユーザー１: test@example.com  :   password
+
+ユーザー２: test@test.com     :   password
 
 ## URL
 開発環境: http://localhost/</>
