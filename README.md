@@ -141,9 +141,9 @@ MAIL_ENCRYPTION=tls
 ## テストユーザー
             メールアドレス       パスワード
 
-ユーザー１: test@example.com  :   password
+ユーザー１: testuser@test.com  :   password
 
-ユーザー２: test@test.com     :   password
+
 
 ## URL
 開発環境: http://localhost/</>
