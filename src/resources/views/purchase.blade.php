@@ -31,9 +31,9 @@
             <div class="header-content">
                 <h3 class="header-content__title">支払い方法</h3>
             </div>
-            <form action="{{route('purchase.selectPayment', ['item_id' => $item->id]) }}" method="post">
+            <form action="{{ route('purchase.selectPayment', ['item_id' => $item->id]) }}" method="post">
                     @csrf
-                    <select name="payment" class="payment-select">
+                    <select name="payment" class="payment-select" onchange="this.form.submit()">
                         @foreach($payments as $payment)
                             <option value="{{ $payment->id }}" {{ session('paymentId') == $payment->id ? 'selected' : '' }}>{{ $payment->method }}</option>
                         @endforeach

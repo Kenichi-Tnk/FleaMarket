@@ -83,8 +83,8 @@ Route::middleware('auth', 'verified')->group(function() {
         Route::get('/address/{item_id}', [PurchaseController::class, 'address']);
         Route::post('/address/update/{item_id}', [PurchaseController::class, 'updateAddress']);
         Route::get('/payment/{item_id}', [PurchaseController::class, 'payment']);
-        Route::post('/payment/select/{item_id}', [PurchaseController::class, 'selectPayment'])->name('purchase.selectPayment');
-        Route::post('/decide/{item_id}', [PurchaseController::class, 'decidePurchase']);
+        Route::post('/payment/payment/select/{item_id}', [PurchaseController::class, 'selectPayment'])->name('purchase.selectPayment');
+        Route::post('/purchase/decide/{item_id}', [PurchaseController::class, 'decidePurchase'])->name('purchase.decide');
     });
 });
 
